@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+
+</head>
+
+<body>
+
+
+  <main>
+
+    <Script src="funciones.js"> </Script>
+
+    <script>
+
+      /*
+      Segun tu ingreso te informa que prestamo podes sacar y te da la opcion de seleccionar en 12,24 y 36 cuotas para despues informarte como te queda el plan, en caso de no poner ESC o un monto cuando te lo pide saldra error.
+      */
+
+
+      let presupuestoCliente;
+      let preguntarSiEsUsuario;
+      let categoriaPresupuesto;
+      let montoCuotas;
+      let montoPrestamo;
+      let numeroOpciones;
+      let validadorPlan;
+      let validadorAdmin;
+      let idUsuario;
+      let ingresarUsuario;
+      let ingresarContraseña;
+      let ingresarDatoCliente;
+      let numeroIndex;
+      const tasaInteresAnual = 60;
+      const acumuladoClientes = [{ idCliente: 1, nombreCliente: "Diego", apellidoCliente: "Vellon", mailCliente: "DIEEE@GG.COM", telefonoCliente: 1112223336, montoPrestamoCliente: 1250000, montoCuotaCliente: 3144, cantidadCuotaCliente: 12, estadoContactado: "No contactado", fechaCreacion: "2/8/2022", actualizacionFechaEstado: " " },
+      { idCliente: 2, nombreCliente: "Yanina", apellidoCliente: "Sun", mailCliente: "Yann@GG.COM", telefonoCliente: 1444223336, montoPrestamoCliente: 1360000, montoCuotaCliente: 6144, cantidadCuotaCliente: 24, estadoContactado: "Contactado", fechaCreacion: "2/8/2022", actualizacionFechaEstado: "4/8/2022 " },
+      { idCliente: 3, nombreCliente: "Anahi", apellidoCliente: "Gonz", mailCliente: "Anhi@GG.COM", telefonoCliente: 1454223336, montoPrestamoCliente: 60000, montoCuotaCliente: 2000, cantidadCuotaCliente: 36, estadoContactado: "No Contactado", fechaCreacion: "27/7/2022", actualizacionFechaEstado: " " }]
+
+
+      validadorAdmin = false;
+
+      while (preguntarSiEsUsuario != true) {
+
+        preguntarSiEsUsuario = prompt("Es USUARIO o ADMIN?").toUpperCase();
+
+        switch (preguntarSiEsUsuario) {
+
+
+          case "USUARIO":
+
+            do {
+
+              validadorPlan = false;
+
+              presupuestoCliente = prompt("Ingrese el ingreso neto de su sueldo o ESC para salir:").toUpperCase();
+
+              if (presupuestoCliente != "ESC") {
+                presupuestoCliente = parseInt(presupuestoCliente);
+
+                let compararMontoMenorQue = menorQue(presupuestoCliente);
+                let compararMontoMayorQue = mayorQue(presupuestoCliente);
+                let compararMontoMayorMenorQue = mayorQueYMenorQue(presupuestoCliente);
+
+                if (compararMontoMenorQue(30000) == true) {
+
+
+                  alert("Su ingreso no es valido para nuestros planes");
+
+
+                } else if (compararMontoMayorMenorQue(29999, 70000) == true) {
+
+                  categoriaPresupuesto = "bajo";
+                  montoPrestamo = 100000;
+                  calculoMontoCuotas();
+
+                } else if (compararMontoMayorMenorQue(69999, 150000) == true) {
+
+                  categoriaPresupuesto = "medio";
+                  montoPrestamo = 250000;
+                  calculoMontoCuotas();
+
+                } else if (compararMontoMayorQue(149999 == true)) {
+
+                  categoriaPresupuesto = "alto";
+                  montoPrestamo = 450000;
+                  calculoMontoCuotas();
+
+                } else {
+
+                  mensajeInvalido();
+
+                }
+              }
+
+              preguntarSiEsUsuario = true;
+
+            } while (presupuestoCliente != true)
+            break;
+
+          case "ADMIN":
+
+
+
+            while (validadorAdmin != true) {
+
+
+              ingresarUsuario = prompt("Ingrese su usuario: (ADMIN)");
+              ingresarContraseña = prompt("Ingrese su contraseña: (123456)")
+
+              if ((ingresarUsuario == "ADMIN") && (ingresarContraseña == "123456")) {
+
+                while (ingresarDatoCliente != true) {
+
+                  let clienteBuscado;
+                  let opcionBusqueda;
+                  opcionBusqueda = prompt(`Ingrese el numero con la opcion que desee utilizar:\n1:Buscar por ID\n2:Buscar por Nombre\n3:Buscar por apellido\n4:Buscar por fecha(d/M/yyy)\n5:Estado de contacto\n6:Salir`)
+
+
+                  switch (opcionBusqueda) {
+
+
+                    case "1":
+                      
+                      ingresarDatoCliente = prompt("Ingrese la ID del cliente para ver la informacion: ")
+                      ingresarDatoCliente = parseInt(ingresarDatoCliente);
+                      clienteBuscado = acumuladoClientes.filter((filtro) => filtro.idCliente == ingresarDatoCliente)
+                      mensajeBusqueda(clienteBuscado);
+                      break;
+
+                    case "2":
+
+                      ingresarDatoCliente = prompt("Ingrese el nombre del cliente para ver la informacion: ")
+                      clienteBuscado = acumuladoClientes.filter((filtro) => filtro.nombreCliente == ingresarDatoCliente)
+                      mensajeBusqueda(clienteBuscado);
+                      break;
+
+                    case "3":
+
+                      ingresarDatoCliente = prompt("Ingrese el apellido del cliente para ver la informacion: ")
+                      clienteBuscado = acumuladoClientes.filter((filtro) => filtro.apellidoCliente == ingresarDatoCliente)
+                      mensajeBusqueda(clienteBuscado);
+                      break;
+
+                    case "4":
+
+                      ingresarDatoCliente = prompt("Ingrese la fecha de creacion en d/M/yyyy ver la informacion del cliente: ")
+                      clienteBuscado = acumuladoClientes.filter((filtro) => filtro.fechaCreacion == ingresarDatoCliente)
+                      mensajeBusqueda(clienteBuscado);
+                      break;
+
+                    case "5":
+
+                      ingresarDatoCliente = prompt("Ingrese si el estado es Contactado o No contactado: ")
+                      clienteBuscado = acumuladoClientes.filter((filtro) => filtro.estadoContactado == ingresarDatoCliente)
+                      mensajeBusqueda(clienteBuscado);
+                      break;
+
+                    case "6":
+                      ingresarDatoCliente = true;
+                      preguntarSiEsUsuario = true;
+                      break
+
+                    default:
+
+                      mensajeInvalido();
+                      break;
+
+
+                  }
+                }
+
+
+                validadorAdmin = true;
+
+
+              } else {
+
+                mensajeInvalido();
+
+              }
+            }
+
+            break;
+
+          default:
+
+
+            mensajeInvalido()
+
+        }
+
+      }
+
+    </script>
+
+  </main>
+
+</body>
+
+</html>
