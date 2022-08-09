@@ -96,13 +96,13 @@
               }
 
               preguntarSiEsUsuario = true;
-
+              presupuestoCliente = true;
             } while (presupuestoCliente != true)
             break;
 
           case "ADMIN":
 
-
+               validadorAdmin = false;
 
             while (validadorAdmin != true) {
 
@@ -123,7 +123,7 @@
 
 
                     case "1":
-                      
+
                       ingresarDatoCliente = prompt("Ingrese la ID del cliente para ver la informacion: ")
                       ingresarDatoCliente = parseInt(ingresarDatoCliente);
                       clienteBuscado = acumuladoClientes.filter((filtro) => filtro.idCliente == ingresarDatoCliente)
@@ -200,4 +200,4 @@
 
 </body>
 
-</html>
+</html> 

@@ -255,7 +255,7 @@ const mensajeBusqueda = (encontrandoCliente) => {
 
                         break;
 
-                    
+
                     default:
                         mensajeInvalido();
 
@@ -274,10 +274,15 @@ const mensajeBusqueda = (encontrandoCliente) => {
             ingresarDatoCliente = true;
             preguntarSiEsUsuario = true;
 
+        }else{
+
+            ingresarDatoCliente = false;
+
         }
     } else {
 
         alert("No se encontro ningun cliente, intentelo de nuevo")
+        ingresarDatoCliente = false;
 
     }
 }
