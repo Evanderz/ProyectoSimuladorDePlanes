@@ -1,0 +1,45 @@
+.centrado{
+    background-color: #ccc;
+    width: 30%;
+    margin: 300px auto;
+    padding: 20px;
+    text-align: center;
+    /* border: red solid 10px; */
+    border-radius: 10px;
+}
+
+.activo{
+    display: block;
+}
+
+.inactivo{
+    display: none;
+}
+
+.superponer{
+  position: absolute;
+  top: 0;
+  left: 0px;
+  right: 0px;
+  
+  margin:350px auto;
+  width: 20%;
+    text-align: center;
+    border: rgb(255, 255, 255) solid 2px;
+    border-radius:10px;
+    z-index: 1001;
+}
+
+.error{
+    position: absolute;
+ 
+  
+  background-color: rgba(0, 0, 0, 0.348);
+  width: 100%;
+  height: 100%;
+    
+    
+
+    z-index: 1001;
+
+}

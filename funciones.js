@@ -1,167 +1,359 @@
+
+/*
+Segun tu ingreso te informa que prestamo podes sacar y te da la opcion de seleccionar en 12,24 y 36 cuotas para despues informarte como te queda el plan, en caso de no poner ESC o un monto cuando te lo pide saldra error.
+*/
+
+
+let presupuestoCliente;
+let preguntarSiEsUsuario;
+let categoriaPresupuesto;
+let montoCuotas;
+let montoPrestamo;
+let numeroOpciones;
+let idUsuario;
+let ingresarUsuario;
+let ingresarContraseña;
+let ingresarDatoCliente;
+let numeroIndex;
+let mailUsuario;
+let nombreUsuario;
+let apellidoUsuario;
+let telefonoUsuario;
+let confirmarSeleccion;
+let numeroCuotas;
+
+
+
+const tasaInteresAnual = 60;
+const acumuladoClientes = [{ idCliente: 1, nombreCliente: "Diego", apellidoCliente: "Vellon", mailCliente: "DIEEE@GG.COM", telefonoCliente: 1112223336, montoPrestamoCliente: 1250000, montoCuotaCliente: 3144, cantidadCuotaCliente: 12, estadoContactado: "No contactado", fechaCreacion: "2/8/2022", actualizacionFechaEstado: " " },
+{ idCliente: 2, nombreCliente: "Yanina", apellidoCliente: "Sun", mailCliente: "Yann@GG.COM", telefonoCliente: 1444223336, montoPrestamoCliente: 1360000, montoCuotaCliente: 6144, cantidadCuotaCliente: 24, estadoContactado: "Contactado", fechaCreacion: "2/8/2022", actualizacionFechaEstado: "4/8/2022 " },
+{ idCliente: 3, nombreCliente: "Anahi", apellidoCliente: "Gonz", mailCliente: "Anhi@GG.COM", telefonoCliente: 1454223336, montoPrestamoCliente: 60000, montoCuotaCliente: 2000, cantidadCuotaCliente: 36, estadoContactado: "No Contactado", fechaCreacion: "27/7/2022", actualizacionFechaEstado: " " }]
+
+
+
+let botonCliente = document.getElementById("btnCliente");
+botonCliente.onclick = (e) => {
+
+    e.preventDefault();
+
+
+    volverVisible("sueldo");
+    volverInvisible("inicio");
+
+}
+
+let botonIngresarSueldo = document.getElementById("btnSueldoIngresado");
+botonIngresarSueldo.onclick = (e) => {
+
+    e.preventDefault();
+
+    presupuestoCliente = document.getElementById("SueldoMontoNeto").value;
+    presupuestoCliente = parseInt(presupuestoCliente);
+    let compararMontoMenorQue = menorQue(presupuestoCliente);
+    let compararMontoMayorQue = mayorQue(presupuestoCliente);
+    let compararMontoMayorMenorQue = mayorQueYMenorQue(presupuestoCliente);
+
+
+
+
+    if (compararMontoMayorMenorQue(0, 30000) == true) {
+
+
+        volverVisible("noAptoParaPlan");
+        volverInvisible("sueldo");
+        let parrafoNoApto = document.getElementById("parrafoNoAptoParaPlan");
+        parrafoNoApto.innerText = "No hay ningun plan que podemos ofrecerle con ese presupuesto";
+
+    } else if (compararMontoMayorMenorQue(29999, 70000) == true) {
+
+        montoPrestamo = 100000;
+        volverVisible("presupuesto");
+        volverInvisible("sueldo");
+        tituloParrafoPresupuesto("tituloPresupuesto", "parrafoPresupuesto", "Su presupuesto es bajo");
+
+
+
+    } else if (compararMontoMayorMenorQue(69999, 150000) == true) {
+
+        montoPrestamo = 250000;
+        volverVisible("presupuesto");
+        volverInvisible("sueldo");
+        tituloParrafoPresupuesto("tituloPresupuesto", "parrafoPresupuesto", "Su presupuesto es Medio");
+
+
+
+    } else if (compararMontoMayorQue(149999 == true)) {
+        montoPrestamo = 450000;
+        volverVisible("presupuesto");
+        volverInvisible("sueldo");
+        tituloParrafoPresupuesto("tituloPresupuesto", "parrafoPresupuesto", "Su presupuesto es Alto");
+
+
+
+    } else {
+        
+        mensajeCartelError("El monto que ingreso no es valido.")
+        volverVisible("cartelMensajeInvalido");
+        
+
+    }
+
+
+
+}
+
+const volverVisible = (id) => {
+
+    let visible = document.getElementById(id);
+    visible.classList.remove("inactivo");
+    visible.classList.add("activo");
+
+}
+
+const volverInvisible = (id) => {
+
+    let invisible = document.getElementById(id);
+
+    invisible.classList.remove("activo");
+    invisible.classList.add("inactivo");
+
+}
+
+const tituloParrafoPresupuesto = (idTituloPresupuesto, idParrafoPresupuesto, textoTitulo) => {
+
+    let tituloMostrar = document.getElementById(idTituloPresupuesto);
+    let parrafoMostrar = document.getElementById(idParrafoPresupuesto);
+    tituloMostrar.innerText = textoTitulo;
+
+    parrafoMostrar.innerText = `Puede acceder a un prestamo de $${montoPrestamo} seleccione entre las siguientes cantidad de cuotas para ver los planes: `;
+
+}
+
+const menorQue = (montoIngreso) => {
+
+    return (numeroComparativo) => numeroComparativo > montoIngreso;
+
+}
+
+const mayorQue = (montoIngreso) => {
+
+    return (numeroComparativo) => numeroComparativo < montoIngreso;
+
+}
+
+const mayorQueYMenorQue = (montoIngreso) => {
+
+    return (numeroMenor, numeroMayor) => (numeroMenor < montoIngreso) && (numeroMayor > montoIngreso);
+
+}
 const diaHoy = mostrarFecha => {
 
     let diaActual = new Date();
 
-    return `${diaActual.getDate()}/${diaActual.getMonth() + 1}/${diaActual.getFullYear()}`
+    return `${diaActual.getDate()}/${diaActual.getMonth() + 1}/${diaActual.getFullYear()}`;
 
 }
-
 const calculoParaSacarValorCuota = (montoPrestamo, numeroOpciones, tasaInteresAnual) => {
 
-    return ((montoPrestamo * (tasaInteresAnual * (numeroOpciones / 12))) / 100 + montoPrestamo) / numeroOpciones
+    return ((montoPrestamo * (tasaInteresAnual * (numeroOpciones / 12))) / 100 + montoPrestamo) / numeroOpciones;
+
+
+
+}
+//Creo un Div con los botones de cuotas
+let contenedor = document.getElementById("contenedorApp")
+let botonesPresupuesto = document.createElement("div")
+let mensajeNoApto = document.createElement("div")
+mensajeNoApto.id = "noAptoParaPlan"
+mensajeNoApto.className = "centrado inactivo p-5 mb-4 bg-dark rounded-3";
+mensajeNoApto.innerHTML = ` <p id="parrafoNoAptoParaPlan" style="color:rgb(255, 255, 255);"></p>
+                                <button id="btnNoAptoParaPlan" type="button" class="btn btn-secondary p-1 mb-1">Volver al Inicio</button>`
+botonesPresupuesto.id = "presupuesto";
+botonesPresupuesto.className = "centrado inactivo p-5 mb-4 bg-dark rounded-3";
+botonesPresupuesto.innerHTML = ` <label>
+                                        <h5 id="tituloPresupuesto" style="color:rgb(255, 255, 255);"></h5>
+                                        <p id="parrafoPresupuesto" style="color:rgb(255, 255, 255);"></p>
+                                     </label>
+                                     <button  type="button" class="btn btn-secondary p-1 mb-1" id="btnDoceCuotas">12
+                                        Cuotas</button>
+                                     <button id="btnVeintiCuatroCuotas" type="button" class="btn btn-secondary p-1 mb-1">24
+                                        Cuotas</button>
+                                     <button id="btnTreintaiSeisCuotas" type="button" class="btn btn-secondary p-1 mb-1">36
+                                        Cuotas</button>
+                                     <button id="btnCuarentaiOchoCuotas" type="button" class="btn btn-secondary p-1 mb-1">48
+                                        Cuotas</button>
+                                     <button id="btnSesentaCuotas" type="button" class="btn btn-secondary p-1 mb-1">60
+                                        Cuotas</button>`
+contenedor.appendChild(botonesPresupuesto);
+contenedor.appendChild(mensajeNoApto);
+
+let botonNoApto = document.getElementById("btnNoAptoParaPlan");
+botonNoApto.onclick = () => {
+
+    volverPantallaInicio("noAptoParaPlan");
 
 }
 
-const mensajePlan = () => alert(`Su prestamo de $${montoPrestamo} en ${numeroOpciones} cuotas con un TNA del ${tasaInteresAnual}% le da una valor de cuota de $${parseInt(calculoParaSacarValorCuota(montoPrestamo, numeroOpciones, tasaInteresAnual))} `)
-const mensajeInvalido = () => alert("Comando Invalido");
+//Funciones de los botones de cuotas                                        
+let botonDoceCuotas = document.getElementById("btnDoceCuotas");
+botonDoceCuotas.onclick = () => {
+    mensajePlanYConfirmacion(12);
+}
+let botonVeintiCuatroCuotas = document.getElementById("btnVeintiCuatroCuotas");
+botonVeintiCuatroCuotas.onclick = () => {
+    mensajePlanYConfirmacion(24);
+}
+let botonTreintaiSeisCuotas = document.getElementById("btnTreintaiSeisCuotas");
+botonTreintaiSeisCuotas.onclick = () => {
+    mensajePlanYConfirmacion(36);
+}
+let botonCuarentaiOchoCuotas = document.getElementById("btnCuarentaiOchoCuotas");
+botonCuarentaiOchoCuotas.onclick = () => {
+    mensajePlanYConfirmacion(48);
+}
+let botonSesentaCuotas = document.getElementById("btnSesentaCuotas");
+botonSesentaCuotas.onclick = () => {
+    mensajePlanYConfirmacion(60);
+}
 
-const calculoMontoCuotas = () => {
+const mensajePlanYConfirmacion = (numeroDeCuotas) => {
 
-    while (validadorPlan != true) {
-        numeroOpciones = prompt(`Su presupuesto es ${categoriaPresupuesto}  puede acceder a un prestamo de $${montoPrestamo} seleccione entre 12, 24, 36, 48 y 60 cuotas para ver los planes: `);
-        numeroOpciones = parseInt(numeroOpciones);
+    numeroCuotas = numeroDeCuotas;
+    volverInvisible("presupuesto");
+    volverVisible("mensajePlan");
 
 
-        switch (numeroOpciones) {
+    let parrafoMensajePlan = document.getElementById("idParrafoPlan");
+    parrafoMensajePlan.innerText = `Su prestamo de $${montoPrestamo} en ${numeroDeCuotas} cuotas con un TNA del ${tasaInteresAnual}% le da una valor de cuota de $${parseInt(calculoParaSacarValorCuota(montoPrestamo, numeroDeCuotas, tasaInteresAnual))} `
 
-            case 12:
-                mensajePlan();
-                seleccionarPlan();
-                break;
+}
+//----------------------------------------------------------------------------------------------------------------------------
 
-            case 24:
-                mensajePlan();
-                seleccionarPlan();
-                break;
+let botonConfirmarPlan = document.getElementById("btnConfirmarPlan");
+botonConfirmarPlan.onclick = () => {
 
-            case 36:
-                mensajePlan();
-                seleccionarPlan();
-                break;
 
-            case 48:
-                mensajePlan();
-                seleccionarPlan();
-                break;
 
-            case 60:
-                mensajePlan();
-                seleccionarPlan();
-                break;
+    nombreUsuario = document.getElementById("nombre").value;
 
-            default:
-                mensajeInvalido();
-                break;
-        }
-    }
+    let nombreCliente = document.getElementById("nombrePlan");
+    nombreCliente.innerText = nombreUsuario.innerText;
+    volverInvisible("mensajePlan");
+    volverVisible("formularioCliente");
+
+}
+
+// Funciones para volver a pantallas anteriores:
+
+let botonRetrocederMensajePlan = document.getElementById("btnRetrocederMensajePlan");
+botonRetrocederMensajePlan.onclick = () => {
+
+    volverPantallaCuotas("mensajePlan");
+
+}
+let botonRetrocederFormulario = document.getElementById("btnRetrocederFormulario");
+
+botonRetrocederFormulario.onclick = () => {
+
+    volverPantallaCuotas("formularioCliente");
+
+}
+
+const volverPantallaCuotas = (opcionOcultar) => {
+
+
+    volverInvisible(opcionOcultar);
+    volverVisible("presupuesto");
+
+
+}
+let botonRetrocederAlFormulario = document.getElementById("btnRetrocederAlFormulario")
+botonRetrocederAlFormulario.onclick = () => {
+
+    volverPantallaFormulario("datosCliente");
+
+}
+
+const volverPantallaFormulario = (opcionOcultar) => {
+
+
+    volverInvisible(opcionOcultar);
+    volverVisible("formularioCliente");
+
+
+}
+
+const volverPantallaInicio = (opcionOcultar) => {
+
+    volverInvisible(opcionOcultar);
+    volverVisible("inicio");
 
 }
 
 
-const seleccionarPlan = () => {
+// ----------------------------------------------------------------------------------------------------------------------
+
+let botonDatosCliente = document.getElementById("btnDatosCliente");
+botonDatosCliente.onclick = () => {
 
 
-    let mailUsuario;
-    let nombreUsuario;
-    let apellidoUsuario;
-    let telefonoUsuario;
-    let validadorUsuario;
-    let validadorVolver;
-    let confirmarSeleccion;
+    nombreUsuario = document.getElementById("nombre").value;
+    let nombreCliente = document.getElementById("nombrePlan");
+    nombreCliente.innerText = `Nombre: ${nombreUsuario}`;
 
-    confirmarSeleccion = prompt("Ingrese 1 para seleccionar este plan, 2 para volver a elegir la cantidad de cuotas, 3 para ir al inicio o 4 para salir");
+    apellidoUsuario = document.getElementById("apellido").value;
+    let apellidoCliente = document.getElementById("apellidoPlan");
+    apellidoCliente.innerText = `Apellido: ${apellidoUsuario}`;
 
-    while (validadorUsuario != "y") {
+    mailUsuario = document.getElementById("mail").value;
+    let mailCliente = document.getElementById("mailPlan");
+    mailCliente.innerText = `Mail: ${mailUsuario}`;
 
-        validadorUsuario = "n";
+    telefonoUsuario = document.getElementById("telefono").value;
+    let telefonoCliente = document.getElementById("telefonoPlan");
+    telefonoCliente.innerText = `Telefono: ${telefonoUsuario}`
 
-        switch (confirmarSeleccion) {
+    let montoPrestamoCliente = document.getElementById("montoPrestamoPlan");
+    montoPrestamoCliente.innerText = `Monto del prestamo: ${presupuestoCliente}`;
 
-            case "1":
+    let cantidadCuota = document.getElementById("cantidadCuotaPlan");
+    cantidadCuota.innerText = `Cantidad de cuotas: ${numeroCuotas}`;
 
-                validadorVolver = prompt("Ingrese 1 para ingresar su informacion o ingrese 2 para volver al paso anterior");
+    let porcentajeTNA = document.getElementById("porcentajeTNAPlan");
+    porcentajeTNA.innerText = `TNA: %${tasaInteresAnual}`;
 
-                if (validadorVolver == "2") {
+    let montoDeLaCuota = document.getElementById("montoDeLaCuotaPlan");
+    montoDeLaCuota.innerText = `Monto de cuotas: ${parseInt(calculoParaSacarValorCuota(montoPrestamo, numeroCuotas, tasaInteresAnual))}`;
 
-                    validadorUsuario = "y";
+    //Sirve como validador para ver si tiene solamente letras
+     const validador = new RegExp('^[A-Z]+$', 'i');
 
-                } else if (validadorVolver == "1") {
+    if (nombreUsuario == "" || apellidoUsuario == "" || mailUsuario == ""|| telefonoUsuario == "" ) {
 
-                    alert("Por favor ingresa los sigueintes datos:")
-                    nombreUsuario = prompt("Ingrese su nombre por favor");
-                    apellidoUsuario = prompt("Ingrese su apellido por favor");
-                    mailUsuario = prompt("Ingrese su mail por favor");
-                    telefonoUsuario = prompt("Ingrese su numero de telefono por favor");
+        mensajeCartelError("Dejo casillas sin rellenar")
+        volverVisible("cartelMensajeInvalido");
+        
+      //Aca usamos el validador diciendo que si .test(variable.value) es diferente a validador 
+    } else if((!validador.test(nombreUsuario)) || (!validador.test(apellidoUsuario))) {
 
-                    validadorUsuario = prompt(`Los datos ingresados son los siguiente:
-                    \nNombre: ${nombreUsuario}
-                    \nApellido: ${apellidoUsuario}
-                    \nMail: ${mailUsuario}
-                    \nTelefono: ${telefonoUsuario}
-               
-                    \nSi la informacion es correcta presione "y" para que en un plazo de 48hs nos comunicaremos
-                    \nEn caso de querer volver a ingresar su informacion presione "n"`).toLowerCase();
+        mensajeCartelError("Ingreso caracteres incorrectos o dejo espacios en blanco")
+        volverVisible("cartelMensajeInvalido");
+        
+    }else{
 
-                    switch (validadorUsuario) {
-
-                        case "y":
-
-                            alert(`Sr/Sra: ${nombreUsuario} ${apellidoUsuario} gracias por confiar en nosotros y nos comunicaremos con usted dentro de un plazo de 48hs habiles.`)
-
-                            validadorUsuario = "y";
-                            validadorPlan = 1;
-                            presupuestoCliente = "ESC";
-
-                            idUsuario = (acumuladoClientes[acumuladoClientes.length - 1].idCliente) + 1
-
-
-
-                            break;
-
-                        case "n":
-                            validadorUsuario = "n";
-                            break;
-
-                        default:
-
-                            mensajeInvalido();
-                            validadorUsuario = "n";
-                            break;
-                    }
-                } else {
-
-                    mensajeInvalido();
-                    validadorUsuario = "n";
-
-                }
-
-                break;
-
-            case "2":
-
-                calculoMontoCuotas();
-
-                break;
-
-            case "3":
-                validadorPlan = true;
-                validadorUsuario = "y";
-                presupuestoCliente = false;
-                break;
-
-            case "4":
-                validadorPlan = true;
-                validadorUsuario = "y";
-                presupuestoCliente = true;
-                break;
-
-            default:
-                mensajeInvalido();
-                validadorUsuario = "y";
-                break;
-
-        }
+        volverInvisible("formularioCliente");
+        volverVisible("datosCliente");
     }
+
+
+
+}
+
+const cargarClientesYMensajeFinal = () => {
+
+    idUsuario = (acumuladoClientes[acumuladoClientes.length - 1].idCliente) + 1;
+    let mensajeFinalCliente = document.getElementById("mensajeFinal");
+    mensajeFinalCliente.innerText = `Sr/Sra: ${nombreUsuario} ${apellidoUsuario} gracias por confiar en nosotros y nos comunicaremos con usted dentro de un plazo de 48hs habiles.`;
 
     class DatosCliente {
 
@@ -183,106 +375,30 @@ const seleccionarPlan = () => {
 
     }
 
-    acumuladoClientes.push(new DatosCliente(idUsuario, nombreUsuario, apellidoUsuario, mailUsuario, telefonoUsuario, montoPrestamo, calculoParaSacarValorCuota(montoPrestamo, numeroOpciones, tasaInteresAnual), numeroOpciones, "No contactado", diaHoy(), " "))
-
+    acumuladoClientes.push(new DatosCliente(idUsuario, nombreUsuario, apellidoUsuario, mailUsuario, telefonoUsuario, montoPrestamo, calculoParaSacarValorCuota(montoPrestamo, numeroCuotas, tasaInteresAnual), numeroCuotas, "No contactado", diaHoy(), " "))
     console.log(acumuladoClientes);
-    preguntarSiEsUsuario = true;
+
+    volverInvisible("datosCliente");
+    volverVisible("datosFinales");
 
 
 }
 
-const menorQue = (montoIngreso) => {
+const botonMensajeInvalido = document.getElementById("btnMensajeInvalido");
+botonMensajeInvalido.onclick = () => {
 
-    return (numeroComparativo) => numeroComparativo > montoIngreso;
 
-}
-
-const mayorQue = (montoIngreso) => {
-
-    return (numeroComparativo) => numeroComparativo < montoIngreso;
+    volverInvisible("cartelMensajeInvalido");
 
 }
 
-const mayorQueYMenorQue = (montoIngreso) => {
+const mensajeCartelError = (mensaje) =>{
 
-    return (numeroMenor, numeroMayor) => (numeroMenor < montoIngreso) && (numeroMayor > montoIngreso);
+    let mensajeParrafoError = document.getElementById("mensajeError");
+    mensajeParrafoError.innerText = mensaje;
 
 }
 
-const mensajeBusqueda = (encontrandoCliente) => {
-
-    const clienteEncontrado = encontrandoCliente;
-
-    if (clienteEncontrado.length > 0) {
-
-        alert(`Se encontraron ${clienteEncontrado.length} cliente/s`);
 
 
-        for (const cliente of clienteEncontrado) {
-            let seleccionAdministrarCliente;
-            let validadorAdministrarCliente;
-            validadorAdministrarCliente = false
 
-            alert(`Id: ${cliente.idCliente}\nNombre: ${cliente.nombreCliente}\nApellido: ${cliente.apellidoCliente}\nMail: ${cliente.mailCliente}\nTelefono: ${cliente.telefonoCliente}\nMonto Total del Prestamo: ${cliente.montoPrestamoCliente}\nMonto de la cuota: ${cliente.montoCuotaCliente}\nCantidad de cuotas: ${cliente.cantidadCuotaCliente}\nFecha de creacion: ${cliente.fechaCreacion}\nEstado de contaco: ${cliente.estadoContactado}\nUltima actualizacion del estado: ${cliente.actualizacionFechaEstado}`);
-
-            while (validadorAdministrarCliente != true) {
-                seleccionAdministrarCliente = prompt(`Ingrese el numero con la opcion que desee utilizar:\n1:Pasar al siguiente cliente\n2:Marcar cliente como Contactado\n3:Borrar Cliente`)
-                numeroIndex = (acumuladoClientes.map(index => index.idCliente).indexOf(cliente.idCliente))
-
-                switch (seleccionAdministrarCliente) {
-
-                    case "1":
-
-                        validadorAdministrarCliente = true;
-                        break;
-
-                    case "2":
-
-                        acumuladoClientes[numeroIndex].estadoContactado = "Contactado"
-                        acumuladoClientes[numeroIndex].actualizacionFechaEstado = diaHoy();
-                        validadorAdministrarCliente = true;
-                        alert("Estado cambiado a contactado.")
-                        console.log(acumuladoClientes);
-
-
-                        break;
-
-                    case "3":
-
-                        acumuladoClientes.splice(numeroIndex, 1);
-                        alert("Cliente borrado");
-                        validadorAdministrarCliente = true;
-
-                        break;
-
-
-                    default:
-                        mensajeInvalido();
-
-                }
-            }
-
-
-        }
-
-        alert("No hay mas clientes");
-
-        ingresarDatoCliente = prompt("Ingrese 1 para ingresar otro dato del cliente o 2 para Salir");
-
-        if (ingresarDatoCliente == "2") {
-
-            ingresarDatoCliente = true;
-            preguntarSiEsUsuario = true;
-
-        }else{
-
-            ingresarDatoCliente = false;
-
-        }
-    } else {
-
-        alert("No se encontro ningun cliente, intentelo de nuevo")
-        ingresarDatoCliente = false;
-
-    }
-}

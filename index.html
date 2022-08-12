@@ -1,0 +1,167 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.98.0">
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
+
+  <link href="estilo.css" rel="stylesheet">
+  <!--link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet" -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <script defer src="funciones.js"></script>
+
+  <!-- Custom styles for this template -->
+
+  
+<body background="https://img.freepik.com/vector-gratis/inversor-laptop-monitoreando-crecimiento-dividendos-comerciante-sentado-sobre-pila-dinero-invertir-capital-analizar-graficos-ganancias-ilustracion-vector-finanzas-comercio-acciones-inversion_74855-8432.jpg?w=2000">
+
+ 
+ 
+
+  <main>
+
+    <div id="cartelMensajeInvalido" class="error inactivo">
+    <div class="centrado bg-danger rounded-3 superponer">
+      <h1 style="color:rgb(255, 255, 255);" class="p-3 mb-3 display-6 fw-bold">Error</h1>
+      <p id="mensajeError" style="color:rgb(255, 255, 255);"></p>
+      <button id="btnMensajeInvalido" type="button" class="btn btn-primary">Aceptar</button>
+    </div>
+  </div>
+   
+    <!-- Pantalla donde se elije si es Administrador o Cliente -->
+    <div id="contenedorApp" class="container-fluid py-3">
+    
+
+      <div id="inicio" class="centrado activo p-5 mb-4 bg-dark rounded-3">
+        <h1 style="color:rgb(255, 255, 255);" class="p-3 mb-3 display-6 fw-bold">Elija una opcion</h1>
+        <button id="btnCliente" type="button" class="btn btn-primary">CLIENTE</button>
+        <a class="btn btn-success" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">ADMIN</a>
+
+      </div>
+
+      <!-- Pantalla donde el cliente ingresa su sueldo -->
+      <div id="sueldo" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
+        <form>
+          <label>
+            <h1 style="color:rgb(255, 255, 255);">Ingrese su sueldo neto</h1>
+          </label>
+          <input class="form-control p-3 mb-3" type="number" id="SueldoMontoNeto" placeholder="Ingrese su sueldo neto">
+          <button id="btnSueldoIngresado" type=" button" class="btn btn-success"
+            onclick="ingresoDeSueldo()">Aceptar</button>
+        </form>
+      </div>
+
+
+
+      <!-- Pantalla donde muestra los datos del plan, valor de la cuota, cantidad de cuotas, TNA, etc -->
+      <div id="mensajePlan" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
+        <form>
+          <label>
+            <h1 style="color:rgb(255, 255, 255);">Su Plan</h1>
+            <p id="idParrafoPlan" style="color:rgb(255, 255, 255);"></p>
+          </label>
+          <button id="btnRetrocederMensajePlan" type="button" class="btn btn-danger">Atras </button>
+          <button id="btnConfirmarPlan" type="button" class="btn btn-success">Confirmar Plan--></button>
+        </form>
+      </div>
+
+      <!-- Pantalla donde rellena los datos pedidos -->
+      <div id="formularioCliente" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
+        <form>
+          <label>
+            <h1 style="color:rgb(255, 255, 255);">Ingrese sus datos</h1>
+          </label>
+          <ul>
+            <li>
+              <p style="color:rgb(255, 255, 255);" class="p-1 mb-1 float-start">Nombre</p>
+              <input id="nombre" class="form-control p-1 mb-1" type="text" placeholder="Ingrese su Nombre">
+            </li>
+            <li>
+              <p style="color:rgb(255, 255, 255);" class="p-1 mb-1 float-start">Apellido</p>
+              <input id="apellido" class="form-control p-1 mb-1" type="text" placeholder="Ingrese su Apellido">
+            </li>
+            <li>
+              <p style="color:rgb(255, 255, 255);" class="p-1 mb-1 float-start">Mail</p>
+              <input id="mail" class="form-control p-1 mb-1" type="text" placeholder="Ingrese su Mail">
+            </li>
+            <li>
+              <p style="color:rgb(255, 255, 255);" class="p-1 mb-1 float-start">Telefono</p>
+              <input id="telefono" class="form-control p-1 mb-1" type="number" placeholder="Ingrese su Telefono">
+            </li>
+          </ul>
+          <button id="btnRetrocederFormulario" type="button" class="btn btn-danger">
+            Volver a elegir cuotas</button>
+          <button id="btnDatosCliente" type="button" class="btn btn-success">Siguiente--></button>
+        </form>
+      </div>
+
+      <!-- Pantalla donde muestra los datos finales del cliente y el Plan -->
+      <div id="datosCliente" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
+        <form>
+          <label>
+            <h1 style="color:rgb(255, 255, 255);">Sus datos</h1>
+          </label>
+          <ul>
+            <li>
+              <p id="nombrePlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2 "></p>
+            </li>
+            <li>
+              <p id="apellidoPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2 "></p>
+            </li>
+            <li>
+              <p id="mailPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+            </li>
+            <li>
+              <p id="telefonoPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+            </li>
+            <li>
+              <p id="montoPrestamoPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+            </li>
+            <li>
+              <p id="cantidadCuotaPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+            </li>
+            <li>
+              <p id="porcentajeTNAPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+            </li>
+            <li>
+              <p id="montoDeLaCuotaPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+            </li>
+          </ul>
+          <button id="btnRetrocederAlFormulario" type="button" class="btn btn-danger">
+            Volver a ingresar los datos</button>
+          <button type="button" class="btn btn-success" onclick="cargarClientesYMensajeFinal()">Confirmar
+            Plan</button>
+        </form>
+      </div>
+
+      <div id="datosFinales" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
+        <form>
+          <label>
+            <h1 style="color:rgb(255, 255, 255);">Excelente!!</h1>
+            <p id="mensajeFinal" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+          </label>
+          <button type="button" class="btn btn-success" onclick="volverPantallaInicio(`datosFinales`,`inicio`)">Volver
+            al inicio</button>
+        </form>
+      </div>
+
+
+
+    </div>
+  </main>
+
+
+
+
+
+
+
+</body>
+
+
+</html>
