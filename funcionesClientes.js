@@ -5,36 +5,47 @@ Segun tu ingreso te informa que prestamo podes sacar y te da la opcion de selecc
 
 
 let presupuestoCliente;
-let preguntarSiEsUsuario;
-let categoriaPresupuesto;
-let montoCuotas;
 let montoPrestamo;
 let numeroOpciones;
 let idUsuario;
-let ingresarUsuario;
-let ingresarContraseña;
-let ingresarDatoCliente;
-let numeroIndex;
 let mailUsuario;
 let nombreUsuario;
 let apellidoUsuario;
 let telefonoUsuario;
-let confirmarSeleccion;
 let numeroCuotas;
-
-
-
 const tasaInteresAnual = 60;
-const acumuladoClientes = [{ idCliente: 1, nombreCliente: "Diego", apellidoCliente: "Vellon", mailCliente: "DIEEE@GG.COM", telefonoCliente: 1112223336, montoPrestamoCliente: 1250000, montoCuotaCliente: 3144, cantidadCuotaCliente: 12, estadoContactado: "No contactado", fechaCreacion: "2/8/2022", actualizacionFechaEstado: " " },
-{ idCliente: 2, nombreCliente: "Yanina", apellidoCliente: "Sun", mailCliente: "Yann@GG.COM", telefonoCliente: 1444223336, montoPrestamoCliente: 1360000, montoCuotaCliente: 6144, cantidadCuotaCliente: 24, estadoContactado: "Contactado", fechaCreacion: "2/8/2022", actualizacionFechaEstado: "4/8/2022 " },
-{ idCliente: 3, nombreCliente: "Anahi", apellidoCliente: "Gonz", mailCliente: "Anhi@GG.COM", telefonoCliente: 1454223336, montoPrestamoCliente: 60000, montoCuotaCliente: 2000, cantidadCuotaCliente: 36, estadoContactado: "No Contactado", fechaCreacion: "27/7/2022", actualizacionFechaEstado: " " }]
+let acumuladoClientes =  [];
 
 
+class DatosCliente {
+
+    constructor(objeto) {
+
+        this.idCliente = objeto.idCliente;
+        this.nombreCliente = objeto.nombreCliente;
+        this.apellidoCliente = objeto.apellidoCliente;
+        this.mailCliente = objeto.mailCliente;
+        this.telefonoCliente = objeto.telefonoCliente;
+        this.montoPrestamoCliente = objeto.montoPrestamoCliente;
+        this.montoCuotaCliente = objeto.montoCuotaCliente;
+        this.cantidadCuotaCliente = objeto.cantidadCuotaCliente;
+        this.estadoContactado = objeto.estadoContactado;
+        this.fechaCreacion = objeto.fechaCreacion;
+        this.actualizacionFechaEstado = objeto.actualizacionFechaEstado;
+    }
+
+
+}
+acumuladoClientes.push(new DatosCliente({ idCliente: 1, nombreCliente: "Diego", apellidoCliente: "Vellon", mailCliente: "DIEEE@GG.COM", telefonoCliente: 1112223336, montoPrestamoCliente: 1250000, montoCuotaCliente: 3144, cantidadCuotaCliente: 12, estadoContactado: "No contactado", fechaCreacion: "2/8/2022", actualizacionFechaEstado: " " }))
+acumuladoClientes.push(new DatosCliente({ idCliente: 2, nombreCliente: "Yanina", apellidoCliente: "Sun", mailCliente: "Yann@GG.COM", telefonoCliente: 1444223336, montoPrestamoCliente: 11360000, montoCuotaCliente: 6144, cantidadCuotaCliente: 24, estadoContactado: "Contactado", fechaCreacion: "2/8/2022", actualizacionFechaEstado: "4/8/2022" }))
+acumuladoClientes.push(new DatosCliente({ idCliente: 3, nombreCliente: "Luciana", apellidoCliente: "Vozzi", mailCliente: "Luz@GG.COM", telefonoCliente: 145866666, montoPrestamoCliente: 1478000, montoCuotaCliente: 1444, cantidadCuotaCliente: 36, estadoContactado: "Contactado", fechaCreacion: "5/8/2022", actualizacionFechaEstado: "10/8/2022" }))
+
+clientesCargados = CargarJSON("listaClientes");
+
+acumuladoClientes = verificarGuardadoYCargarJSON(clientesCargados,acumuladoClientes,DatosCliente);
 
 let botonCliente = document.getElementById("btnCliente");
-botonCliente.onclick = (e) => {
-
-    e.preventDefault();
+botonCliente.onclick = () => {
 
 
     volverVisible("sueldo");
@@ -43,9 +54,8 @@ botonCliente.onclick = (e) => {
 }
 
 let botonIngresarSueldo = document.getElementById("btnSueldoIngresado");
-botonIngresarSueldo.onclick = (e) => {
+botonIngresarSueldo.onclick = () => {
 
-    e.preventDefault();
 
     presupuestoCliente = document.getElementById("SueldoMontoNeto").value;
     presupuestoCliente = parseInt(presupuestoCliente);
@@ -54,9 +64,11 @@ botonIngresarSueldo.onclick = (e) => {
     let compararMontoMayorMenorQue = mayorQueYMenorQue(presupuestoCliente);
 
 
+    if (compararMontoMenorQue(0) == true) {
 
+        mensajeCartelError("El monto que ingreso no es valido.")
 
-    if (compararMontoMayorMenorQue(0, 30000) == true) {
+    } else if (compararMontoMenorQue(30000) == true) {
 
 
         volverVisible("noAptoParaPlan");
@@ -64,7 +76,10 @@ botonIngresarSueldo.onclick = (e) => {
         let parrafoNoApto = document.getElementById("parrafoNoAptoParaPlan");
         parrafoNoApto.innerText = "No hay ningun plan que podemos ofrecerle con ese presupuesto";
 
-    } else if (compararMontoMayorMenorQue(29999, 70000) == true) {
+
+
+    } else if (compararMontoMenorQue(70000) == true) {
+
 
         montoPrestamo = 100000;
         volverVisible("presupuesto");
@@ -72,8 +87,7 @@ botonIngresarSueldo.onclick = (e) => {
         tituloParrafoPresupuesto("tituloPresupuesto", "parrafoPresupuesto", "Su presupuesto es bajo");
 
 
-
-    } else if (compararMontoMayorMenorQue(69999, 150000) == true) {
+    } else if (compararMontoMenorQue(150000) == true) {
 
         montoPrestamo = 250000;
         volverVisible("presupuesto");
@@ -81,43 +95,24 @@ botonIngresarSueldo.onclick = (e) => {
         tituloParrafoPresupuesto("tituloPresupuesto", "parrafoPresupuesto", "Su presupuesto es Medio");
 
 
+    } else {
 
-    } else if (compararMontoMayorQue(149999 == true)) {
         montoPrestamo = 450000;
         volverVisible("presupuesto");
         volverInvisible("sueldo");
         tituloParrafoPresupuesto("tituloPresupuesto", "parrafoPresupuesto", "Su presupuesto es Alto");
 
-
-
-    } else {
-        
-        mensajeCartelError("El monto que ingreso no es valido.")
-        volverVisible("cartelMensajeInvalido");
-        
-
     }
+}
 
+let botonVolverInicioDesdeSueldoIngresado = document.getElementById("btnVolverInicioDesdeSueldoIngresado")
+botonVolverInicioDesdeSueldoIngresado.onclick = () =>{
+
+    volverPantallaInicio("sueldo");
 
 
 }
 
-const volverVisible = (id) => {
-
-    let visible = document.getElementById(id);
-    visible.classList.remove("inactivo");
-    visible.classList.add("activo");
-
-}
-
-const volverInvisible = (id) => {
-
-    let invisible = document.getElementById(id);
-
-    invisible.classList.remove("activo");
-    invisible.classList.add("inactivo");
-
-}
 
 const tituloParrafoPresupuesto = (idTituloPresupuesto, idParrafoPresupuesto, textoTitulo) => {
 
@@ -129,35 +124,9 @@ const tituloParrafoPresupuesto = (idTituloPresupuesto, idParrafoPresupuesto, tex
 
 }
 
-const menorQue = (montoIngreso) => {
-
-    return (numeroComparativo) => numeroComparativo > montoIngreso;
-
-}
-
-const mayorQue = (montoIngreso) => {
-
-    return (numeroComparativo) => numeroComparativo < montoIngreso;
-
-}
-
-const mayorQueYMenorQue = (montoIngreso) => {
-
-    return (numeroMenor, numeroMayor) => (numeroMenor < montoIngreso) && (numeroMayor > montoIngreso);
-
-}
-const diaHoy = mostrarFecha => {
-
-    let diaActual = new Date();
-
-    return `${diaActual.getDate()}/${diaActual.getMonth() + 1}/${diaActual.getFullYear()}`;
-
-}
 const calculoParaSacarValorCuota = (montoPrestamo, numeroOpciones, tasaInteresAnual) => {
 
     return ((montoPrestamo * (tasaInteresAnual * (numeroOpciones / 12))) / 100 + montoPrestamo) / numeroOpciones;
-
-
 
 }
 //Creo un Div con los botones de cuotas
@@ -259,6 +228,13 @@ botonRetrocederFormulario.onclick = () => {
 
 }
 
+let botonVolvePantallaInicio = document.getElementById("btnvolverPantallaInicio");
+botonVolvePantallaInicio.onclick = () =>{
+
+    volverPantallaInicio(`datosFinales`);
+
+}
+
 const volverPantallaCuotas = (opcionOcultar) => {
 
 
@@ -280,13 +256,6 @@ const volverPantallaFormulario = (opcionOcultar) => {
     volverInvisible(opcionOcultar);
     volverVisible("formularioCliente");
 
-
-}
-
-const volverPantallaInicio = (opcionOcultar) => {
-
-    volverInvisible(opcionOcultar);
-    volverVisible("inicio");
 
 }
 
@@ -326,20 +295,20 @@ botonDatosCliente.onclick = () => {
     montoDeLaCuota.innerText = `Monto de cuotas: ${parseInt(calculoParaSacarValorCuota(montoPrestamo, numeroCuotas, tasaInteresAnual))}`;
 
     //Sirve como validador para ver si tiene solamente letras
-     const validador = new RegExp('^[A-Z]+$', 'i');
+    const validador = new RegExp('^[A-Z]+$', 'i');
 
-    if (nombreUsuario == "" || apellidoUsuario == "" || mailUsuario == ""|| telefonoUsuario == "" ) {
+    if (nombreUsuario == "" || apellidoUsuario == "" || mailUsuario == "" || telefonoUsuario == "") {
 
         mensajeCartelError("Dejo casillas sin rellenar")
-        volverVisible("cartelMensajeInvalido");
         
-      //Aca usamos el validador diciendo que si .test(variable.value) es diferente a validador 
-    } else if((!validador.test(nombreUsuario)) || (!validador.test(apellidoUsuario))) {
+
+        //Aca usamos el validador diciendo que si .test(variable.value) es diferente a validador 
+    } else if ((!validador.test(nombreUsuario)) || (!validador.test(apellidoUsuario))) {
 
         mensajeCartelError("Ingreso caracteres incorrectos o dejo espacios en blanco")
-        volverVisible("cartelMensajeInvalido");
         
-    }else{
+
+    } else {
 
         volverInvisible("formularioCliente");
         volverVisible("datosCliente");
@@ -348,56 +317,29 @@ botonDatosCliente.onclick = () => {
 
 
 }
-
-const cargarClientesYMensajeFinal = () => {
+let botonConfirmarPasoFinal = document.getElementById("btnConfirmarPasoFinal");
+botonConfirmarPasoFinal.onclick = () => {
 
     idUsuario = (acumuladoClientes[acumuladoClientes.length - 1].idCliente) + 1;
     let mensajeFinalCliente = document.getElementById("mensajeFinal");
     mensajeFinalCliente.innerText = `Sr/Sra: ${nombreUsuario} ${apellidoUsuario} gracias por confiar en nosotros y nos comunicaremos con usted dentro de un plazo de 48hs habiles.`;
 
-    class DatosCliente {
 
-        constructor(idCliente, nombreCliente, apellidoCliente, mailCliente, telefonoCliente, montoPrestamoCliente, montoCuotaCliente, cantidadCuotaCliente, estadoContactado, fechaCreacion, actualizacionFechaEstado) {
-
-            this.idCliente = idCliente;
-            this.nombreCliente = nombreCliente;
-            this.apellidoCliente = apellidoCliente;
-            this.mailCliente = mailCliente;
-            this.telefonoCliente = telefonoCliente;
-            this.montoPrestamoCliente = montoPrestamoCliente;
-            this.montoCuotaCliente = montoCuotaCliente;
-            this.cantidadCuotaCliente = cantidadCuotaCliente;
-            this.estadoContactado = estadoContactado;
-            this.fechaCreacion = fechaCreacion;
-            this.actualizacionFechaEstado = actualizacionFechaEstado;
-        }
-
-
-    }
-
-    acumuladoClientes.push(new DatosCliente(idUsuario, nombreUsuario, apellidoUsuario, mailUsuario, telefonoUsuario, montoPrestamo, calculoParaSacarValorCuota(montoPrestamo, numeroCuotas, tasaInteresAnual), numeroCuotas, "No contactado", diaHoy(), " "))
+    acumuladoClientes.push(new DatosCliente({ idCliente: idUsuario, nombreCliente: nombreUsuario, apellidoCliente: apellidoUsuario, mailCliente: mailUsuario, telefonoCliente: telefonoUsuario, montoPrestamoCliente: montoPrestamo, montoCuotaCliente: calculoParaSacarValorCuota(montoPrestamo, numeroCuotas, tasaInteresAnual), cantidadCuotaCliente: numeroCuotas, estadoContactado: "No contactado", fechaCreacion: diaHoy(), actualizacionFechaEstado: " " }))
     console.log(acumuladoClientes);
 
     volverInvisible("datosCliente");
     volverVisible("datosFinales");
 
+    GuardarJSON("listaClientes",acumuladoClientes);
+
 
 }
 
-const botonMensajeInvalido = document.getElementById("btnMensajeInvalido");
-botonMensajeInvalido.onclick = () => {
 
 
-    volverInvisible("cartelMensajeInvalido");
 
-}
 
-const mensajeCartelError = (mensaje) =>{
-
-    let mensajeParrafoError = document.getElementById("mensajeError");
-    mensajeParrafoError.innerText = mensaje;
-
-}
 
 
 
