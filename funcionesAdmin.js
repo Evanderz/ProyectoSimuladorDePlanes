@@ -26,8 +26,10 @@ class Admin {
 
 //SE CARGA EL JSON Y DESPUES SE VERIFICA SI TIENE DATOS
 adminsCargados = CargarJSON("listaAdmin");
-cuentasAdmin = verificarGuardadoYCargarJSON(adminsCargados,cuentasAdmin,Admin);
-
+// cuentasAdmin = verificarGuardadoYCargarJSON(adminsCargados,cuentasAdmin,Admin);
+//TERNARIO
+cuentasAdmin = adminsCargados ? recorrerArray(adminsCargados,cuentasAdmin,Admin) :cuentasAdmin;
+console.log(cuentasAdmin);
 
 //SACA EL INDEX DEL ARRAY
 const sacarIndexArrayCuentasAdmin = (valorBuscado) => {

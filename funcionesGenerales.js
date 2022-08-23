@@ -80,27 +80,21 @@ const CargarJSON = (etiqueta) => {
 
 }
 
-const verificarGuardadoYCargarJSON = (cargaJSON,nombreArray,nombreClase) =>{
-    
 
-    
-    if (cargaJSON) {
-    
-        nombreArray = [];
+
+const recorrerArray = (cargaJSON,nombreArray,nombreClase) =>{
+
+
+    nombreArray = [];
         
     
-        for (const elemento of cargaJSON) {
-    
-            nombreArray.push(new nombreClase(elemento));
+    for (const elemento of cargaJSON) {
 
-        }
-        return nombreArray;
-    
-    }else{
+        nombreArray.push(new nombreClase(elemento));
 
-        return nombreArray;
     }
-
+    return nombreArray;
 
 }
+
 

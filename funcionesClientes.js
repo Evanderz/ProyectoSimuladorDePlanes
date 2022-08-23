@@ -41,12 +41,16 @@ class DatosCliente {
 acumuladoClientes.push(new DatosCliente({ idCliente: 1, nombreCliente: "Diego", apellidoCliente: "Vellon", mailCliente: "DIEEE@GG.COM", telefonoCliente: 1112223336, montoPrestamoCliente: 1250000, montoCuotaCliente: 3144, cantidadCuotaCliente: 12, estadoContactado: "No contactado", fechaCreacion: "2/8/2022", actualizacionFechaEstado: " " }))
 acumuladoClientes.push(new DatosCliente({ idCliente: 2, nombreCliente: "Yanina", apellidoCliente: "Sun", mailCliente: "Yann@GG.COM", telefonoCliente: 1444223336, montoPrestamoCliente: 11360000, montoCuotaCliente: 6144, cantidadCuotaCliente: 24, estadoContactado: "Contactado", fechaCreacion: "2/8/2022", actualizacionFechaEstado: "4/8/2022" }))
 acumuladoClientes.push(new DatosCliente({ idCliente: 3, nombreCliente: "Luciana", apellidoCliente: "Vozzi", mailCliente: "Luz@GG.COM", telefonoCliente: 145866666, montoPrestamoCliente: 1478000, montoCuotaCliente: 1444, cantidadCuotaCliente: 36, estadoContactado: "Contactado", fechaCreacion: "5/8/2022", actualizacionFechaEstado: "10/8/2022" }))
-
 //CARGO LO GUARDADO EN EL STORAGE
 clientesCargados = CargarJSON("listaClientes");
 
 //VERIFICO QUE EL STORAGE TENGA DATOS PARA REEMPLAZAR LOS DATOS EN EL ARRAY SINO LO DEJA COMO ESTA
-acumuladoClientes = verificarGuardadoYCargarJSON(clientesCargados,acumuladoClientes,DatosCliente);
+
+// acumuladoClientes = verificarGuardadoYCargarJSON(clientesCargados,acumuladoClientes,DatosCliente);
+
+//TERNARIO
+acumuladoClientes = clientesCargados? recorrerArray(clientesCargados,acumuladoClientes,DatosCliente) :acumuladoClientes;
+console.log(acumuladoClientes);
 
 //COMPARA EL SUELDO INGRESADO PARA LUEGO INFORMAR A QUE TIPO DE PRESTAMO SE PUEDE ACCEDER
 const compararSueldoIngresado = () =>{
