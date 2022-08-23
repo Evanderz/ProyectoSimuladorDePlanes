@@ -3,6 +3,7 @@ let contraseñaAdmin;
 let nombrePilaAdmin;
 let apellidoAdmin;
 let mailAdmin;
+let indexAdmin;
 
 let cuentasAdmin = [{ idAdmin: 0, nombreUsuario: "dvellon", contraseñaUsuario: "123456", nombrePila: "Diego", apellido: "Vellon" },
 { idAdmin: 1, nombreUsuario: "lvozzi", contraseñaUsuario: "654321", nombrePila: "Luciana", apellido: "Vozzi" }];
@@ -44,15 +45,21 @@ const verificarUsuarioYContraseña = () =>{
 
 
     const nombreAdmin = document.getElementById("ingresoUsuarioAdmin").value;
+   
+
+    indexAdmin = sacarIndexArrayCuentasAdmin(nombreAdmin);
+
+    //TERNARIO
+    indexAdmin < 0 ? mensajeCartelError("El nombre de usuario no existe") : verificarContraseña();
+
+      
+}
+
+//FUNCION PARA VERIFICAR LA CONTRASEÑA
+const verificarContraseña = () => {
+
     const contraseñaAdmin = document.getElementById("ingresoContraseñaAdmin").value;
-
-    const indexAdmin = sacarIndexArrayCuentasAdmin(nombreAdmin);
-
-    if (indexAdmin < 0) {
-
-        mensajeCartelError("El nombre de usuario no existe");
-
-    } else if (cuentasAdmin[indexAdmin].contraseñaUsuario == contraseñaAdmin) {
+    if(cuentasAdmin[indexAdmin].contraseñaUsuario == contraseñaAdmin)  {
 
         let mensajeBienvenida = document.getElementById("mensajeBienvenida");
         mensajeBienvenida.innerText = `Bienvenido \n${cuentasAdmin[indexAdmin].nombrePila} ${cuentasAdmin[indexAdmin].apellido}!`
@@ -66,6 +73,7 @@ const verificarUsuarioYContraseña = () =>{
         mensajeCartelError("La contraseña es incorrecta");
 
     }
+
 }
 
 
@@ -73,14 +81,18 @@ const verificarUsuarioYContraseña = () =>{
 //FUNCION PARA VALIDAR SI HAY CASILLAS EN BLANCO O SI HAY CARACTERES ESPECIALES EN EL NOMBRE Y APELLIDO
 const validadorDeCaracteresAdmin = () =>{
 
-    const validador = new RegExp('^[A-Z]+$', 'i');
-
-    if (nombreDeCuenta == "" || contraseñaAdmin == "" || nombrePilaAdmin == "" || apellidoAdmin == "" || mailAdmin == "") {
-
-        mensajeCartelError("Dejo casillas sin rellenar");
     
+
+    (nombreDeCuenta == "" || contraseñaAdmin == "" || nombrePilaAdmin == "" || apellidoAdmin == "" || mailAdmin == "") ? mensajeCartelError("Dejo casillas sin rellenar") : validarCaracteresEspeciales();
+
+}   
+
+const validarCaracteresEspeciales = () =>{
+
+    const validador = new RegExp('^[A-Z]+$', 'i');
     //Aca usamos el validador diciendo que si .test(variable.value) es diferente a validador 
-    } else if ((!validador.test(nombrePilaAdmin)) || (!validador.test(apellidoAdmin))) {
+    
+    if ((!validador.test(nombrePilaAdmin)) || (!validador.test(apellidoAdmin))) {
 
         mensajeCartelError("Ingreso caracteres incorrectos o dejo espacios en blanco");
         
@@ -96,6 +108,8 @@ const validadorDeCaracteresAdmin = () =>{
         GuardarJSON("listaAdmin",cuentasAdmin);
         
     }
+
+
 }
 
 
