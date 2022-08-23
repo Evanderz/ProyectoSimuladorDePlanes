@@ -173,6 +173,7 @@ botonConfirmarBorrarAdmin.onclick = () => {
         cuentasAdmin.splice(indexAdmin, 1);
         volverInvisible("borrarAdmin");
         volverVisible("mensajeBorrarAdmin");
+        GuardarJSON("listaAdmin",cuentasAdmin);
 
     }
 
