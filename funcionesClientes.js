@@ -16,7 +16,7 @@ let numeroCuotas;
 const tasaInteresAnual = 60;
 let acumuladoClientes =  [];
 
-
+//CREO CLASE PARA LOS DATOS DEL CLIENTE
 class DatosCliente {
 
     constructor(objeto) {
@@ -36,25 +36,20 @@ class DatosCliente {
 
 
 }
+
+//HAGO PUSH DE DATOS HARDCORDEADOS
 acumuladoClientes.push(new DatosCliente({ idCliente: 1, nombreCliente: "Diego", apellidoCliente: "Vellon", mailCliente: "DIEEE@GG.COM", telefonoCliente: 1112223336, montoPrestamoCliente: 1250000, montoCuotaCliente: 3144, cantidadCuotaCliente: 12, estadoContactado: "No contactado", fechaCreacion: "2/8/2022", actualizacionFechaEstado: " " }))
 acumuladoClientes.push(new DatosCliente({ idCliente: 2, nombreCliente: "Yanina", apellidoCliente: "Sun", mailCliente: "Yann@GG.COM", telefonoCliente: 1444223336, montoPrestamoCliente: 11360000, montoCuotaCliente: 6144, cantidadCuotaCliente: 24, estadoContactado: "Contactado", fechaCreacion: "2/8/2022", actualizacionFechaEstado: "4/8/2022" }))
 acumuladoClientes.push(new DatosCliente({ idCliente: 3, nombreCliente: "Luciana", apellidoCliente: "Vozzi", mailCliente: "Luz@GG.COM", telefonoCliente: 145866666, montoPrestamoCliente: 1478000, montoCuotaCliente: 1444, cantidadCuotaCliente: 36, estadoContactado: "Contactado", fechaCreacion: "5/8/2022", actualizacionFechaEstado: "10/8/2022" }))
 
+//CARGO LO GUARDADO EN EL STORAGE
 clientesCargados = CargarJSON("listaClientes");
 
+//VERIFICO QUE EL STORAGE TENGA DATOS PARA REEMPLAZAR LOS DATOS EN EL ARRAY SINO LO DEJA COMO ESTA
 acumuladoClientes = verificarGuardadoYCargarJSON(clientesCargados,acumuladoClientes,DatosCliente);
 
-let botonCliente = document.getElementById("btnCliente");
-botonCliente.onclick = () => {
-
-
-    volverVisible("sueldo");
-    volverInvisible("inicio");
-
-}
-
-let botonIngresarSueldo = document.getElementById("btnSueldoIngresado");
-botonIngresarSueldo.onclick = () => {
+//COMPARA EL SUELDO INGRESADO PARA LUEGO INFORMAR A QUE TIPO DE PRESTAMO SE PUEDE ACCEDER
+const compararSueldoIngresado = () =>{
 
 
     presupuestoCliente = document.getElementById("SueldoMontoNeto").value;
@@ -103,17 +98,13 @@ botonIngresarSueldo.onclick = () => {
         tituloParrafoPresupuesto("tituloPresupuesto", "parrafoPresupuesto", "Su presupuesto es Alto");
 
     }
-}
 
-let botonVolverInicioDesdeSueldoIngresado = document.getElementById("btnVolverInicioDesdeSueldoIngresado")
-botonVolverInicioDesdeSueldoIngresado.onclick = () =>{
 
-    volverPantallaInicio("sueldo");
 
 
 }
 
-
+//OBTIENE EL ELEMENTO DEL TITULO Y EL PARRAFO PARA MODIFICARLO E INFORMAR A QUE PLAN PUEDE ACCEDER
 const tituloParrafoPresupuesto = (idTituloPresupuesto, idParrafoPresupuesto, textoTitulo) => {
 
     let tituloMostrar = document.getElementById(idTituloPresupuesto);
@@ -123,13 +114,13 @@ const tituloParrafoPresupuesto = (idTituloPresupuesto, idParrafoPresupuesto, tex
     parrafoMostrar.innerText = `Puede acceder a un prestamo de $${montoPrestamo} seleccione entre las siguientes cantidad de cuotas para ver los planes: `;
 
 }
-
+//CALCULA EL MONTO DE LA CUOTA
 const calculoParaSacarValorCuota = (montoPrestamo, numeroOpciones, tasaInteresAnual) => {
 
     return ((montoPrestamo * (tasaInteresAnual * (numeroOpciones / 12))) / 100 + montoPrestamo) / numeroOpciones;
 
 }
-//Creo un Div con los botones de cuotas
+//CREO UN DIV CON LOS BOTONES DE LAS CUOTAS
 let contenedor = document.getElementById("contenedorApp")
 let botonesPresupuesto = document.createElement("div")
 let mensajeNoApto = document.createElement("div")
@@ -156,34 +147,9 @@ botonesPresupuesto.innerHTML = ` <label>
 contenedor.appendChild(botonesPresupuesto);
 contenedor.appendChild(mensajeNoApto);
 
-let botonNoApto = document.getElementById("btnNoAptoParaPlan");
-botonNoApto.onclick = () => {
 
-    volverPantallaInicio("noAptoParaPlan");
 
-}
-
-//Funciones de los botones de cuotas                                        
-let botonDoceCuotas = document.getElementById("btnDoceCuotas");
-botonDoceCuotas.onclick = () => {
-    mensajePlanYConfirmacion(12);
-}
-let botonVeintiCuatroCuotas = document.getElementById("btnVeintiCuatroCuotas");
-botonVeintiCuatroCuotas.onclick = () => {
-    mensajePlanYConfirmacion(24);
-}
-let botonTreintaiSeisCuotas = document.getElementById("btnTreintaiSeisCuotas");
-botonTreintaiSeisCuotas.onclick = () => {
-    mensajePlanYConfirmacion(36);
-}
-let botonCuarentaiOchoCuotas = document.getElementById("btnCuarentaiOchoCuotas");
-botonCuarentaiOchoCuotas.onclick = () => {
-    mensajePlanYConfirmacion(48);
-}
-let botonSesentaCuotas = document.getElementById("btnSesentaCuotas");
-botonSesentaCuotas.onclick = () => {
-    mensajePlanYConfirmacion(60);
-}
+//FUNCION PARA MODIFICAR EL PARRAFO DONDE TE MUESTRA TODA LA INFORMACION DEL PLAN AL QUE ESTA POR ACCEDER
 
 const mensajePlanYConfirmacion = (numeroDeCuotas) => {
 
@@ -198,72 +164,52 @@ const mensajePlanYConfirmacion = (numeroDeCuotas) => {
 }
 //----------------------------------------------------------------------------------------------------------------------------
 
-let botonConfirmarPlan = document.getElementById("btnConfirmarPlan");
-botonConfirmarPlan.onclick = () => {
 
-
-
-    nombreUsuario = document.getElementById("nombre").value;
-
-    let nombreCliente = document.getElementById("nombrePlan");
-    nombreCliente.innerText = nombreUsuario.innerText;
-    volverInvisible("mensajePlan");
-    volverVisible("formularioCliente");
-
-}
-
-// Funciones para volver a pantallas anteriores:
-
-let botonRetrocederMensajePlan = document.getElementById("btnRetrocederMensajePlan");
-botonRetrocederMensajePlan.onclick = () => {
-
-    volverPantallaCuotas("mensajePlan");
-
-}
-let botonRetrocederFormulario = document.getElementById("btnRetrocederFormulario");
-
-botonRetrocederFormulario.onclick = () => {
-
-    volverPantallaCuotas("formularioCliente");
-
-}
-
-let botonVolvePantallaInicio = document.getElementById("btnvolverPantallaInicio");
-botonVolvePantallaInicio.onclick = () =>{
-
-    volverPantallaInicio(`datosFinales`);
-
-}
-
+//FUNCION PARA VOLVER A LA VENTANA DE PRESUPUESTO TOMANDO COMO PARAMETRO LA ID DE LA VENTANA QUE QUEREMOS OCULTAR
 const volverPantallaCuotas = (opcionOcultar) => {
-
 
     volverInvisible(opcionOcultar);
     volverVisible("presupuesto");
 
-
-}
-let botonRetrocederAlFormulario = document.getElementById("btnRetrocederAlFormulario")
-botonRetrocederAlFormulario.onclick = () => {
-
-    volverPantallaFormulario("datosCliente");
-
 }
 
+//FUNCION PARA VOLVER A LA VENTANA DE FORMULARIO TOMANDO COMO PARAMETRO LA ID DE LA VENTANA QUE QUEREMOS OCULTAR
 const volverPantallaFormulario = (opcionOcultar) => {
 
 
     volverInvisible(opcionOcultar);
     volverVisible("formularioCliente");
 
-
 }
 
+//FUNCION PARA VALIDAR SI TIENE CARACTERES QUE NO CORRESPONEN O SI HAY CASILLAS EN BLANCO
+const validadorDeCaracteresCliente = () =>{
 
-// ----------------------------------------------------------------------------------------------------------------------
+    //VALIDADOR PARA SOLO ADMITIR LETRAR Y NINGUN CARACTER ESPECIAL
+    const validador = new RegExp('^[A-Z]+$', 'i');
 
-let botonDatosCliente = document.getElementById("btnDatosCliente");
-botonDatosCliente.onclick = () => {
+    if (nombreUsuario == "" || apellidoUsuario == "" || mailUsuario == "" || telefonoUsuario == "") {
+
+        mensajeCartelError("Dejo casillas sin rellenar")
+        
+
+        //Aca usamos el validador diciendo que si .test(variable.value) es diferente a validador 
+    } else if ((!validador.test(nombreUsuario)) || (!validador.test(apellidoUsuario))) {
+
+        mensajeCartelError("Ingreso caracteres incorrectos o dejo espacios en blanco")
+        
+
+    } else {
+
+        volverInvisible("formularioCliente");
+        volverVisible("datosCliente");
+    }
+
+
+}
+ 
+//FUNCION PARA OBTENER LOS VALORES DE LOS DATOS INGRESADOS EN EL FORMULARIO PARA POSTERIORMENTE MOSTRARLOS
+const obtenerValoresDeDatosIngresadosCliente =()=>{
 
 
     nombreUsuario = document.getElementById("nombre").value;
@@ -294,33 +240,17 @@ botonDatosCliente.onclick = () => {
     let montoDeLaCuota = document.getElementById("montoDeLaCuotaPlan");
     montoDeLaCuota.innerText = `Monto de cuotas: ${parseInt(calculoParaSacarValorCuota(montoPrestamo, numeroCuotas, tasaInteresAnual))}`;
 
-    //Sirve como validador para ver si tiene solamente letras
-    const validador = new RegExp('^[A-Z]+$', 'i');
-
-    if (nombreUsuario == "" || apellidoUsuario == "" || mailUsuario == "" || telefonoUsuario == "") {
-
-        mensajeCartelError("Dejo casillas sin rellenar")
-        
-
-        //Aca usamos el validador diciendo que si .test(variable.value) es diferente a validador 
-    } else if ((!validador.test(nombreUsuario)) || (!validador.test(apellidoUsuario))) {
-
-        mensajeCartelError("Ingreso caracteres incorrectos o dejo espacios en blanco")
-        
-
-    } else {
-
-        volverInvisible("formularioCliente");
-        volverVisible("datosCliente");
-    }
-
-
+    validadorDeCaracteresCliente();
+    
 
 }
-let botonConfirmarPasoFinal = document.getElementById("btnConfirmarPasoFinal");
-botonConfirmarPasoFinal.onclick = () => {
 
+//FUNCION DONDE DONDE PONE EL ID AL NUEVO CLIENTE, MUESTRA EL MENSAJE FINAL Y DESPUES HACE EL PUSH AL ARRAY PARA LUEGO GUARDARLO EN EL STORAGE
+const mensajeFinalYPushAlArray = () =>{
+
+    //OBTENGO EL VALOR DE LA ULTIMA ID DEL ARRAY Y LE SUMO 1
     idUsuario = (acumuladoClientes[acumuladoClientes.length - 1].idCliente) + 1;
+
     let mensajeFinalCliente = document.getElementById("mensajeFinal");
     mensajeFinalCliente.innerText = `Sr/Sra: ${nombreUsuario} ${apellidoUsuario} gracias por confiar en nosotros y nos comunicaremos con usted dentro de un plazo de 48hs habiles.`;
 
@@ -335,6 +265,10 @@ botonConfirmarPasoFinal.onclick = () => {
 
 
 }
+
+
+
+
 
 
 

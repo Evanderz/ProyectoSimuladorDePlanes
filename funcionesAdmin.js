@@ -1,6 +1,13 @@
+let nombreDeCuenta;
+let contraseñaAdmin;
+let nombrePilaAdmin;
+let apellidoAdmin;
+let mailAdmin;
+
 let cuentasAdmin = [{ idAdmin: 0, nombreUsuario: "dvellon", contraseñaUsuario: "123456", nombrePila: "Diego", apellido: "Vellon" },
 { idAdmin: 1, nombreUsuario: "lvozzi", contraseñaUsuario: "654321", nombrePila: "Luciana", apellido: "Vozzi" }];
 
+//CREO LA CLASE PARA LA CUENTAS DE ADMIN
 class Admin {
 
     constructor(objeto) {
@@ -17,12 +24,12 @@ class Admin {
 
 }
 
+//SE CARGA EL JSON Y DESPUES SE VERIFICA SI TIENE DATOS
 adminsCargados = CargarJSON("listaAdmin");
-console.log("lala"+adminsCargados);
 cuentasAdmin = verificarGuardadoYCargarJSON(adminsCargados,cuentasAdmin,Admin);
-console.log(cuentasAdmin);
 
 
+//SACA EL INDEX DEL ARRAY
 const sacarIndexArrayCuentasAdmin = (valorBuscado) => {
 
     return (cuentasAdmin.map(index => index.nombreUsuario).indexOf(valorBuscado));
@@ -30,15 +37,9 @@ const sacarIndexArrayCuentasAdmin = (valorBuscado) => {
 }
 
 
-const botonAdmin = document.getElementById("btnAdmin");
-botonAdmin.onclick = () => {
+//FUNCION PARA VERIFICAR SI EL USUARIO Y LA CONTRASEÑA CON CORRECTAS
+const verificarUsuarioYContraseña = () =>{
 
-    volverInvisible("inicio");
-    volverVisible("ingresarAdmin");
-}
-
-const botonConfirmarIngreso = document.getElementById("btnConfirmarIngreso");
-botonConfirmarIngreso.onclick = () => {
 
     const nombreAdmin = document.getElementById("ingresoUsuarioAdmin").value;
     const contraseñaAdmin = document.getElementById("ingresoContraseñaAdmin").value;
@@ -62,45 +63,13 @@ botonConfirmarIngreso.onclick = () => {
 
         mensajeCartelError("La contraseña es incorrecta");
 
-
     }
-
 }
 
-let botonVolverInicioDesdeIngresarAdmin = document.getElementById("btnVolverInicioDesdeIngresarAdmin");
-botonVolverInicioDesdeIngresarAdmin.onclick = () =>{
-
-     volverPantallaInicio("ingresarAdmin");
-
-
-}
 
 //FUNCION AGREGAR ADMIN
-
-let botonAgregarAdmin = document.getElementById("btnAgregarAdmin");
-botonAgregarAdmin.onclick = () => {
-
-    volverInvisible("bienvenidaAdmin");
-    volverVisible("formularioNuevoAdmin");
-
-}
-
-let botonVolverBienvenida = document.getElementById("btnVolverBienvenida");
-botonVolverBienvenida.onclick = () => {
-
-    volverInvisible("formularioNuevoAdmin");
-    volverVisible("bienvenidaAdmin");
-
-}
-
-let botonConfirmarAdmin = document.getElementById("btnConfirmarAdmin");
-botonConfirmarAdmin.onclick = () => {
-
-    let nombreDeCuenta = document.getElementById("nombreCuenta").value;
-    let contraseñaAdmin = document.getElementById("contraseñaNueva").value;
-    let nombrePilaAdmin = document.getElementById("nombrePilaAdmin").value;
-    let apellidoAdmin = document.getElementById("apellidoAdmin").value;
-    let mailAdmin = document.getElementById("mailAdmin").value;
+//FUNCION PARA VALIDAR SI HAY CASILLAS EN BLANCO O SI HAY CARACTERES ESPECIALES EN EL NOMBRE Y APELLIDO
+const validadorDeCaracteresAdmin = () =>{
 
     const validador = new RegExp('^[A-Z]+$', 'i');
 
@@ -108,12 +77,11 @@ botonConfirmarAdmin.onclick = () => {
 
         mensajeCartelError("Dejo casillas sin rellenar");
     
-        //Aca usamos el validador diciendo que si .test(variable.value) es diferente a validador 
+    //Aca usamos el validador diciendo que si .test(variable.value) es diferente a validador 
     } else if ((!validador.test(nombrePilaAdmin)) || (!validador.test(apellidoAdmin))) {
 
         mensajeCartelError("Ingreso caracteres incorrectos o dejo espacios en blanco");
         
-
     } else {
 
         id = (cuentasAdmin[cuentasAdmin.length - 1].idAdmin) + 1;
@@ -126,38 +94,33 @@ botonConfirmarAdmin.onclick = () => {
         GuardarJSON("listaAdmin",cuentasAdmin);
         
     }
+}
+
+
+
+//FUNCION QUE OBTIENE LOS VALORES POR ID DE LOS DATOS INGRESADOS EN EL FORMULARIO Y LUEGO VERIFICA
+const obtenerValoresDeDatosIngresadosAdmin = () =>{
+
+    nombreDeCuenta = document.getElementById("nombreCuenta").value;
+    contraseñaAdmin = document.getElementById("contraseñaNueva").value;
+    nombrePilaAdmin = document.getElementById("nombrePilaAdmin").value;
+    apellidoAdmin = document.getElementById("apellidoAdmin").value;
+    mailAdmin = document.getElementById("mailAdmin").value;
+
+    validadorDeCaracteresAdmin();
 
 }
 
 
-let botonAceptarNuevoAdmin = document.getElementById("btnAceptarAgregarAdmin");
-botonAceptarNuevoAdmin.onclick = () => {
 
-    nuevoMensaje = document.getElementById("mensajeBienvenida");
-    nuevoMensaje.innerText = "Opciones";
-
-
-    volverInvisible("mensajeSeAgregoAdmin");
-    volverVisible("bienvenidaAdmin");
-
-}
 
 //FIN FUNCION AGREGAR ADMIN
 
 //FUNCION BORRAR ADMIN
+//FUNCION DONDE BORRA EL ADMIN POR EL NOMBRE DE LA CUENTA EN CASO DE EXISTIR
 
-let botonBorrarAdmin = document.getElementById("btnBorrarAdmin");
-botonBorrarAdmin.onclick = () => {
+const borrarAdmin = () =>{
 
-
-    volverInvisible("bienvenidaAdmin");
-    volverVisible("borrarAdmin");
-
-
-}
-
-let botonConfirmarBorrarAdmin = document.getElementById("btnConfirmarBorrarAdmin");
-botonConfirmarBorrarAdmin.onclick = () => {
 
     let nombreAdminBorrar = document.getElementById("borrarAdminIngresado").value;
 
@@ -177,19 +140,8 @@ botonConfirmarBorrarAdmin.onclick = () => {
 
     }
 
-    let botonAceptarBorrarAdmin = document.getElementById("btnAceptarBorrarAdmin");
-    botonAceptarBorrarAdmin.onclick = () => {
-
-        nuevoMensaje = document.getElementById("mensajeBienvenida");
-        nuevoMensaje.innerText = "Opciones";
-
-        volverInvisible("mensajeBorrarAdmin");
-        volverVisible("bienvenidaAdmin");
-
-    }
-
-
 }
+
 
 //FIN FUNCION BORRAR ADMIN
 
