@@ -14,9 +14,10 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
-  <script defer src="funcionesGenerales.js"></script>
-  <script defer src="funcionesClientes.js"></script>
-  <script defer src="funcionesAdmin.js"></script>
+  <script defer src="Funciones/funcionesGenerales.js"></script>
+  <script defer src="Funciones/funcionesClientes.js"></script>
+  <script defer src="Funciones/funcionesAdmin.js"></script>
+  <script defer src="Funciones/funcionesBotones.js"></script>
 
 
   <!-- Custom styles for this template -->
@@ -29,10 +30,10 @@
 
 
   <main>
-
+     <!-- Div con el cartel de error -->
     <div id="cartelMensajeInvalido" class="error inactivo">
       <div class="centrado bg-danger rounded-3 superponer">
-        <h1 style="color:rgb(255, 255, 255);" class="p-3 mb-3 display-6 fw-bold">Error</h1>
+        <h1 class="p-3 mb-3 display-6 fw-bold textoBlanco">Error</h1>
         <p id="mensajeError" style="color:rgb(255, 255, 255);"></p>
         <button id="btnMensajeInvalido" type="button" class="btn btn-primary">Aceptar</button>
       </div>
@@ -43,7 +44,7 @@
 
 
       <div id="inicio" class="centrado activo p-5 mb-4 bg-dark rounded-3">
-        <h1 style="color:rgb(255, 255, 255);" class="p-3 mb-3 display-6 fw-bold">Elija una opcion</h1>
+        <h1 class="p-3 mb-3 display-6 fw-bold textoBlanco">Elija una opcion</h1>
         <button id="btnCliente" type="button" class="btn btn-primary">CLIENTE</button>
         <button id="btnAdmin" type="button" class="btn btn-success">ADMIN</button>
 
@@ -55,7 +56,7 @@
       <div id="sueldo" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
         <form>
           <label>
-            <h1 style="color:rgb(255, 255, 255);">Ingrese su sueldo neto</h1>
+            <h1 class="textoBlanco">Ingrese su sueldo neto</h1>
           </label>
           <input class="form-control p-3 mb-3" type="number" id="SueldoMontoNeto" placeholder="Ingrese su sueldo neto">
           <button id="btnVolverInicioDesdeSueldoIngresado" type="button" class="btn btn-danger" ">Atras</button>
@@ -70,8 +71,8 @@
       <div id="mensajePlan" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
         <form>
           <label>
-            <h1 style="color:rgb(255, 255, 255);">Su Plan</h1>
-            <p id="idParrafoPlan" style="color:rgb(255, 255, 255);"></p>
+            <h1 class="textoBlanco">Su Plan</h1>
+            <p id="idParrafoPlan" class="textoBlanco"></p>
           </label>
           <button id="btnRetrocederMensajePlan" type="button" class="btn btn-danger">Atras </button>
           <button id="btnConfirmarPlan" type="button" class="btn btn-success">Confirmar Plan--></button>
@@ -82,27 +83,27 @@
       <div id="formularioCliente" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
         <form>
           <label>
-            <h1 style="color:rgb(255, 255, 255);">Ingrese sus datos</h1>
+            <h1 class="textoBlanco">Ingrese sus datos</h1>
           </label>
           <ul>
             <li>
-              <p style="color:rgb(255, 255, 255);" class="p-1 mb-1 float-start">Nombre</p>
+              <p class="p-1 mb-1 float-start textoBlanco">Nombre</p>
               <input id="nombre" class="form-control p-1 mb-1" type="text" placeholder="Ingrese su Nombre">
             </li>
             <li>
-              <p style="color:rgb(255, 255, 255);" class="p-1 mb-1 float-start">Apellido</p>
+              <p class="p-1 mb-1 float-start textoBlanco">Apellido</p>
               <input id="apellido" class="form-control p-1 mb-1" type="text" placeholder="Ingrese su Apellido">
             </li>
             <li>
-              <p style="color:rgb(255, 255, 255);" class="p-1 mb-1 float-start">Mail</p>
+              <p class="p-1 mb-1 float-start textoBlanco">Mail</p>
               <input id="mail" class="form-control p-1 mb-1" type="text" placeholder="Ingrese su Mail">
             </li>
             <li>
-              <p style="color:rgb(255, 255, 255);" class="p-1 mb-1 float-start">Telefono</p>
+              <p class="p-1 mb-1 float-start textoBlanco">Telefono</p>
               <input id="telefono" class="form-control p-1 mb-1" type="number" placeholder="Ingrese su Telefono">
             </li>
           </ul>
-          <button id="btnRetrocederFormulario" type="button" class="btn btn-danger">
+          <button id="btnVolverElegirCuota" type="button" class="btn btn-danger">
             Volver a elegir cuotas</button>
           <button id="btnDatosCliente" type="button" class="btn btn-success">Siguiente--></button>
         </form>
@@ -112,32 +113,32 @@
       <div id="datosCliente" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
         <form>
           <label>
-            <h1 style="color:rgb(255, 255, 255);">Sus datos</h1>
+            <h1 class="textoBlanco">Sus datos</h1>
           </label>
           <ul>
             <li>
-              <p id="nombrePlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2 "></p>
+              <p class="p-2 mb-2 textoBlanco"></p>
             </li>
             <li>
-              <p id="apellidoPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2 "></p>
+              <p id="apellidoPlan" class="p-2 mb-2 textoBlanco"></p>
             </li>
             <li>
-              <p id="mailPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+              <p id="mailPlan" class="p-2 mb-2 textoBlanco"></p>
             </li>
             <li>
-              <p id="telefonoPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+              <p id="telefonoPlan" class="p-2 mb-2 textoBlanco"></p>
             </li>
             <li>
-              <p id="montoPrestamoPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+              <p id="montoPrestamoPlan" class="p-2 mb-2 textoBlanco"></p>
             </li>
             <li>
-              <p id="cantidadCuotaPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+              <p id="cantidadCuotaPlan" class="p-2 mb-2 textoBlanco"></p>
             </li>
             <li>
-              <p id="porcentajeTNAPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+              <p id="porcentajeTNAPlan" class="p-2 mb-2 textoBlanco"></p>
             </li>
             <li>
-              <p id="montoDeLaCuotaPlan" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+              <p id="montoDeLaCuotaPlan" class="p-2 mb-2 textoBlanco"></p>
             </li>
           </ul>
           <button id="btnRetrocederAlFormulario" type="button" class="btn btn-danger">
@@ -147,11 +148,13 @@
         </form>
       </div>
 
+      <!-- PANTALLA FINAL DE CONFIRMACION -->
+
       <div id="datosFinales" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
         <form>
           <label>
-            <h1 style="color:rgb(255, 255, 255);">Excelente!!</h1>
-            <p id="mensajeFinal" style="color:rgb(255, 255, 255);" class="p-2 mb-2"></p>
+            <h1 class="textoBlanco">Excelente!!</h1>
+            <p id="mensajeFinal" class="p-2 mb-2 textoBlanco"></p>
           </label>
           <button id="btnvolverPantallaInicio" type="button" class="btn btn-success">Volver
             al inicio</button>
@@ -161,10 +164,11 @@
 
       <!-- INICIO DE LAS VENTANAS DE FUNCION ADMIN -->
 
+      <!-- PANTALLA DONDE SE INGRESA USUARIO Y CONTRASEÑA -->
       <div id="ingresarAdmin" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
         <form>
           <label>
-            <h1 style="color:rgb(255, 255, 255);">Ingrese usuario y contraseña</h1>
+            <h1 class="textoBlanco">Ingrese usuario y contraseña</h1>
           </label>
           <ul>
             <li>
@@ -182,7 +186,7 @@
 
 
       <div id="bienvenidaAdmin" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
-        <h1 id="mensajeBienvenida" style="color:rgb(255, 255, 255);" class="p-2 mb-2 display-6 fw-bold">Bienvenido!</h1>
+        <h1 id="mensajeBienvenida" class="p-2 mb-2 display-6 fw-bold textoBlanco">Bienvenido!</h1>
         <button id="btnAgregarAdmin" type="button" class="btn btn-success">Agregar Admin</button>
         <button id="btnBorrarAdmin" type="button" class="btn btn-danger">Borrar Admin</button>
         <button id="btnBuscarCliente" type="button" class="btn btn-primary">Buscar Clientes</button>
@@ -193,29 +197,29 @@
       <div id="formularioNuevoAdmin" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
         <form>
           <label>
-            <h1 style="color:rgb(255, 255, 255);">Datos del nuevo Admin</h1>
+            <h1 class="textoBlanco">Datos del nuevo Admin</h1>
           </label>
           <ul>
             <li>
-              <p style="color:rgb(255, 255, 255);" class="p-1 mb-1 float-start">Nombre de Cuenta</p>
+              <p class="p-1 mb-1 float-start textoBlanco">Nombre de Cuenta</p>
               <input id="nombreCuenta" class="form-control p-1 mb-1" type="text" placeholder="Ingrese su Nombre">
             </li>
             <li>
-              <p style="color:rgb(255, 255, 255);" class="p-1 mb-1 float-start">Contraseña</p>
+              <p class="p-1 mb-1 float-start textoBlanco">Contraseña</p>
               <input id="contraseñaNueva" class="form-control p-1 mb-1" type="text"
                 placeholder="Ingrese una contraseña para la cuenta">
             </li>
             <li>
-              <p style="color:rgb(255, 255, 255);" class="p-1 mb-1 float-start">Nombre de Pila</p>
+              <p class="p-1 mb-1 float-start textoBlanco">Nombre de Pila</p>
               <input id="nombrePilaAdmin" class="form-control p-1 mb-1" type="text"
                 placeholder="Ingrese el nombre de pila">
             </li>
             <li>
-              <p style="color:rgb(255, 255, 255);" class="p-1 mb-1 float-start">Apellido</p>
+              <p class="p-1 mb-1 float-start textoBlanco">Apellido</p>
               <input id="apellidoAdmin" class="form-control p-1 mb-1" type="text" placeholder="Apellido">
             </li>
             <li>
-              <p style="color:rgb(255, 255, 255);" class="p-1 mb-1 float-start">Mail</p>
+              <p class="p-1 mb-1 float-start textoBlanco">Mail</p>
               <input id="mailAdmin" class="form-control p-1 mb-1" type="text" placeholder="Mail">
             </li>
           </ul>
@@ -229,7 +233,7 @@
       <div id="mensajeSeAgregoAdmin" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
         <form>
           <label>
-            <h1 style="color:rgb(255, 255, 255);">Se agrego el Admin con exito!!!</h1>
+            <h1 class="textoBlanco">Se agrego el Admin con exito!!!</h1>
           </label>
           <button id="btnAceptarAgregarAdmin" type="button" class="btn btn-success">Aceptar</button>
         </form>
@@ -243,7 +247,7 @@
       <div id="borrarAdmin" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
         <form>
           <label>
-            <h1 style="color:rgb(255, 255, 255);">Ingrese el nombre de cuenta que quiera eliminar</h1>
+            <h1 class="textoBlanco">Ingrese el nombre de cuenta que quiera eliminar</h1>
           </label>
           <input id="borrarAdminIngresado" class="form-control p-3 mb-3" type="text"
             placeholder="Ingrese cuenta para borrar">
@@ -255,7 +259,7 @@
       <div id="mensajeBorrarAdmin" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
         <form>
           <label>
-            <h1 style="color:rgb(255, 255, 255);">Admin Eliminado con Exito!</h1>
+            <h1 class="textoBlanco">Admin Eliminado con Exito!</h1>
           </label>>
           <button id="btnAceptarBorrarAdmin" type="button" class="btn btn-success">Aceptar</button>
         </form>
