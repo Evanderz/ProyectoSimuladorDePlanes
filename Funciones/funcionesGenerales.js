@@ -9,10 +9,35 @@ const volverPantallaInicio = (opcionOcultar) => {
 //MUESTRA LA VENTANA DE ERROR QUE TOMA COMO PARAMETRO EL MENSAJE QUE SE QUIERE MOSTRAR EN EL ERROR
 const mensajeCartelError = (mensaje) => {
 
-    let mensajeParrafoError = document.getElementById("mensajeError");
-    mensajeParrafoError.innerText = mensaje;
+    Swal.fire({
 
-    volverVisible("cartelMensajeInvalido");
+      title: "Error",
+      text: mensaje,
+      icon: "error",
+      confirmButtonText:"Aceptar",
+      backdrop:true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+
+    })
+
+}
+
+const mensajeCartelConfirmado = (mensaje) => {
+
+    Swal.fire({
+
+      title: "Exelente!",
+      text: mensaje,
+      icon: "success",
+      confirmButtonText:"Aceptar",
+      backdrop:true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+
+    })
 
 }
 

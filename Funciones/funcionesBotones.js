@@ -186,18 +186,6 @@ botonConfirmarAdmin.onclick = () => {
 
 }
 
-//BOTON DE LA VENTANA FINAL DONDE TE DEVUELVE A LA PANTALLA DE BIENVENIDA PERO LE CAMBIA EL TITULO A OPCIONES
-let botonAceptarNuevoAdmin = document.getElementById("btnAceptarAgregarAdmin");
-botonAceptarNuevoAdmin.onclick = () => {
-
-    nuevoMensaje = document.getElementById("mensajeBienvenida");
-    nuevoMensaje.innerText = "Opciones";
-
-    volverInvisible("mensajeSeAgregoAdmin");
-    volverVisible("bienvenidaAdmin");
-
-}
-
 
 //BOTON PARA IR A LA VENTANA PARA BORRAR ADMIN
 let botonBorrarAdmin = document.getElementById("btnBorrarAdmin");
@@ -216,14 +204,4 @@ botonConfirmarBorrarAdmin.onclick = () => {
 
 }
 
-//BOTON PARA ACEPTAR EL MENSAJE Y LUEGO PASAR DE NUEVO A LA PANTALLA DE OPCIONES DONDE SE CAMBIA EL TITULO A OPCIONES EN VEZ DE BIENVENIDA
-let botonAceptarBorrarAdmin = document.getElementById("btnAceptarBorrarAdmin");
-    botonAceptarBorrarAdmin.onclick = () => {
 
-        nuevoMensaje = document.getElementById("mensajeBienvenida");
-        nuevoMensaje.innerText = "Opciones";
-
-        volverInvisible("mensajeBorrarAdmin");
-        volverVisible("bienvenidaAdmin");
-
-    }

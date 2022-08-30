@@ -18,6 +18,7 @@
   <script defer src="Funciones/funcionesClientes.js"></script>
   <script defer src="Funciones/funcionesAdmin.js"></script>
   <script defer src="Funciones/funcionesBotones.js"></script>
+  <script defer src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -118,7 +119,7 @@
           </label>
           <ul>
             <li>
-              <p class="p-2 mb-2 textoBlanco"></p>
+              <p id="nombrePlan" class="p-2 mb-2 textoBlanco"></p>
             </li>
             <li>
               <p id="apellidoPlan" class="p-2 mb-2 textoBlanco"></p>
@@ -228,15 +229,6 @@
             Volver</button>
           <button id="btnConfirmarAdmin" type="button" class="btn btn-success">Confirmar
             Admin</button>
-        </form>
-      </div>
-
-      <div id="mensajeSeAgregoAdmin" class="centrado inactivo p-5 mb-4 bg-dark rounded-3">
-        <form>
-          <label>
-            <h1 class="textoBlanco">Se agrego el Admin con exito!!!</h1>
-          </label>
-          <button id="btnAceptarAgregarAdmin" type="button" class="btn btn-success">Aceptar</button>
         </form>
       </div>
 

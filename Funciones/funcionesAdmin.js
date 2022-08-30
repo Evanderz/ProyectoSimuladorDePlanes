@@ -102,8 +102,13 @@ const validarCaracteresEspeciales = () =>{
 
         cuentasAdmin.push(new Admin({idAdmin:id, nombreUsuario:nombreDeCuenta, contraseñaUsuario:contraseñaAdmin, nombrePila:nombrePilaAdmin, apellido:apellidoAdmin, mailAdmin:mailAdmin, fechaDeCreacion:diaHoy()}));
 
+        nuevoMensaje = document.getElementById("mensajeBienvenida");
+        nuevoMensaje.innerText = "Opciones";
+    
         volverInvisible("formularioNuevoAdmin");
-        volverVisible("mensajeSeAgregoAdmin");
+        volverVisible("bienvenidaAdmin");
+
+        mensajeCartelConfirmado("Se agrego nuevo Admin");
 
         GuardarJSON("listaAdmin",cuentasAdmin);
         
@@ -150,8 +155,14 @@ const borrarAdmin = () =>{
     } else {
 
         cuentasAdmin.splice(indexAdmin, 1);
+        nuevoMensaje = document.getElementById("mensajeBienvenida");
+        nuevoMensaje.innerText = "Opciones";
+
         volverInvisible("borrarAdmin");
-        volverVisible("mensajeBorrarAdmin");
+        volverVisible("bienvenidaAdmin");
+
+        mensajeCartelConfirmado("Se borro el Admin");
+
         GuardarJSON("listaAdmin",cuentasAdmin);
 
     }
