@@ -41,6 +41,24 @@ const mensajeCartelConfirmado = (mensaje) => {
 
 }
 
+const mensajeCartelAlerta = (mensaje) => {
+
+    Swal.fire({
+
+      title: "Datos encontrados",
+      text: mensaje,
+      icon: "warning",
+      confirmButtonText:"Aceptar",
+      backdrop:true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+
+    })
+
+}
+
+
 //CALCULA LA FECHA DE HOY EN DD/MM/YYYY
 const diaHoy = mostrarFecha => {
 

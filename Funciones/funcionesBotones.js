@@ -164,6 +164,7 @@ let botonAgregarAdmin = document.getElementById("btnAgregarAdmin");
 botonAgregarAdmin.onclick = () => {
 
     volverInvisible("bienvenidaAdmin");
+    volverInvisible("cerrarSesion")
     volverVisible("formularioNuevoAdmin");
 
 }
@@ -174,6 +175,7 @@ botonVolverBienvenida.onclick = () => {
 
     volverInvisible("formularioNuevoAdmin");
     volverVisible("bienvenidaAdmin");
+    volverVisible("cerrarSesion")
 
 }
 
@@ -192,6 +194,7 @@ let botonBorrarAdmin = document.getElementById("btnBorrarAdmin");
 botonBorrarAdmin.onclick = () => {
 
     volverInvisible("bienvenidaAdmin");
+    volverInvisible("cerrarSesion")
     volverVisible("borrarAdmin");
 
 }
@@ -204,4 +207,64 @@ botonConfirmarBorrarAdmin.onclick = () => {
 
 }
 
+let botonBuscarCliente = document.getElementById("btnBuscarCliente");
+botonBuscarCliente.onclick = () =>{
 
+
+    volverInvisible("bienvenidaAdmin");
+    volverInvisible("cerrarSesion")
+    volverVisible("buscarCliente");
+
+
+}
+
+let botonBuscar = document.getElementById("btnBuscarDato");
+botonBuscar.onclick = () =>{
+
+    buscarCliente();
+
+
+}
+
+let botonBuscarOtroCliente = document.getElementById("btnBuscarOtroCliente");
+botonBuscarOtroCliente.onclick = () =>{
+
+
+    volverInvisible("datosClienteBuscados");
+    volverVisible("buscarCliente");
+
+}
+
+let botonSiguienteCliente = document.getElementById("btnSiguienteCliente");
+botonSiguienteCliente.onclick = () =>{
+
+    pasarSiguienteContacto();
+
+
+}
+
+let botonBorrarCliente = document.getElementById("btnBorrarCliente")
+botonBorrarCliente.onclick = () => {
+
+
+borrarCliente();
+
+
+}
+
+let botonCambiarEstado = document.getElementById("btnCambiarEstado");
+botonCambiarEstado.onclick = () =>{
+
+    cambiarEstado();
+
+}
+
+let botonCerrarSesion = document.getElementById("btnCerrarSesion");
+botonCerrarSesion.onclick = () =>{
+
+volverInvisible("cerrarSesion");
+volverInvisible("bienvenidaAdmin");
+volverVisible("ingresarAdmin");
+
+
+}

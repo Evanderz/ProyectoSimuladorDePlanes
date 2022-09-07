@@ -61,3 +61,11 @@
 width: 15px;
 
 }
+
+.puntaCartelAdmin{
+
+    margin-left: 680px;
+    margin-top: -260px;
+    z-index: 1001;
+
+}
