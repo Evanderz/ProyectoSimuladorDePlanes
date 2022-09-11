@@ -200,7 +200,6 @@ const buscarCliente = () => {
 
 
             datoBuscado = parseInt(datoBuscado);
-            console.log("lala" + datoBuscado)
 
             if (isNaN(datoBuscado) || datoBuscado < 0) {
 
@@ -234,9 +233,9 @@ const buscarCliente = () => {
 
         case "Contactado/No Contactado":
 
-            clienteBuscado = clienteBuscado.toString();
-            clienteBuscado = clienteBuscado.toLowerCase();
-            clienteBuscado = acumuladoClientes.filter((filtro) => filtro.estadoContactado == datoBuscado)
+         
+            clienteBuscado = acumuladoClientes.filter((filtro) =>filtro.estadoContactado == (datoBuscado).toLowerCase());
+          
             mostrarClienteBuscado(clienteBuscado);
             break;
 
@@ -360,11 +359,17 @@ const borrarCliente = () => {
 //CAMBIA EL ESTADO A CONTACTADO PARA LUEGO VOLVER A TRAER LA INFORMACION ACTUALIZADA Y VOLVERLA A MOSTRAR
 const cambiarEstado = () => {
 
+if(acumuladoClientes[numeroIndexCliente(clienteEncontrado)].estadoContactado == "contactado"){
 
+mensajeCartelAlerta(`El cliente ya fue contactado el ${acumuladoClientes[numeroIndexCliente(clienteEncontrado)].actualizacionFechaEstado}`)
+
+}else{
     acumuladoClientes[numeroIndexCliente(clienteEncontrado)].estadoContactado = "contactado";
     acumuladoClientes[numeroIndexCliente(clienteEncontrado)].actualizacionFechaEstado = diaHoy();
     mensajeCartelAlerta("Estado cambiado a contactado");
     GuardarJSON("listaClientes", acumuladoClientes);
+
+}
 
     contenedorDeDatosBuscados();
     volverInvisible("datosClienteBuscados");

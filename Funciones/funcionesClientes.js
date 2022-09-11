@@ -190,7 +190,7 @@ const volverPantallaFormulario = (opcionOcultar) => {
 const validadorDeCaracteresCliente = () =>{
 
     //VALIDADOR PARA SOLO ADMITIR LETRAR Y NINGUN CARACTER ESPECIAL
-    const validador = new RegExp('^[A-Z]+$', 'i');
+    const validador = new RegExp('^[A-Z* ]+$', 'i');
 
     if (nombreUsuario == "" || apellidoUsuario == "" || mailUsuario == "" || telefonoUsuario == "") {
 
